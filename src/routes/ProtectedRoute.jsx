@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children }) => {
 
   useEffect(() => {
     if (!auth.isAuthenticated) {
-      navigate('/application/login');
+      navigate('/login');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

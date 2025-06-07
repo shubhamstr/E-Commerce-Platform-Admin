@@ -66,14 +66,14 @@ export default {
               id: 'login-1',
               title: 'Login',
               type: 'item',
-              url: '/application/login',
+              url: '/login',
               target: true
             },
             {
               id: 'register',
               title: 'Register',
               type: 'item',
-              url: '/application/register',
+              url: '/register',
               target: true
             }
           ]
