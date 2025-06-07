@@ -43,3 +43,17 @@ Materially is managed by team CodedThemes.
 - Design and Code is Copyright &copy; [CodedThemes](https://codedthemes.com)
 - Licensed under [MIT]
 - Distributed by [ThemeWagon](https://themewagon.com)
+
+
+
+## E-commerce Platform (Mini Amazon Clone)
+
+- Tech Stack: MERN Stack + Stripe/PayPal
+
+- Features:
+
+-- Product listing, cart, checkout, payments
+
+-- Admin dashboard to manage products and orders
+
+-- Order history, search & filter
