@@ -4,12 +4,8 @@ import { useRoutes } from 'react-router-dom';
 import MainRoutes from './MainRoutes';
 import AuthenticationRoutes from './AuthenticationRoutes';
 
-import { useSelector } from 'react-redux';
-
 // ==============================|| ROUTING RENDER ||============================== //
 
 export default function ThemeRoutes() {
-  const auth = useSelector((state) => state.auth);
-  const routesList = auth.isAuthenticated ? MainRoutes : AuthenticationRoutes;
-  return useRoutes([routesList]);
+  return useRoutes([MainRoutes, AuthenticationRoutes]);
 }

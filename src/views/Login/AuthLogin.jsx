@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -26,9 +27,14 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Google from 'assets/images/social-google.svg';
 
+import { useDispatch } from 'react-redux';
+import { login } from 'store/actions';
+
 // ==============================|| FIREBASE LOGIN ||============================== //
 
 const AuthLogin = ({ ...rest }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const theme = useTheme();
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -93,6 +99,10 @@ const AuthLogin = ({ ...rest }) => {
           email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
           password: Yup.string().max(255).required('Password is required')
         })}
+        onSubmit={() => {
+          dispatch(login({}));
+          navigate('/');
+        }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit} {...rest}>

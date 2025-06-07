@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React from 'react';
 
 // material-ui
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
@@ -17,16 +16,6 @@ import NavigationScroll from './NavigationScroll';
 
 const App = () => {
   const customization = useSelector((state) => state.customization);
-  const auth = useSelector((state) => state.auth);
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    if (!auth.isAuthenticated) {
-      navigate('/application/login');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
 
   return (
     <>
