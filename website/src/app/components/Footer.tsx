@@ -2,6 +2,9 @@
 import React from 'react';
 import { Col, Container, NavLink, Row } from 'reactstrap';
 import styles from './footer.module.css';
+import EmailIcon from '@mui/icons-material/Email';
+import CallIcon from '@mui/icons-material/Call';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 function Footer() {
   return (
@@ -26,9 +29,18 @@ function Footer() {
         </Col>
         <Col>
           <h6 className="text-black text-left fw-semibold text-uppercase px-2">Contact Info</h6>
-          <p className="px-2">203 Fake St. Mountain View, San Francisco, California, USA</p>
-          <p className="px-2">+2 392 3929 210</p>
-          <p className="px-2">emailaddress@domain.com</p>
+          <p className="px-2">
+            <LocationOnIcon className="text-primary me-2" />
+            203 Fake St. Mountain View, San Francisco, California, USA
+          </p>
+          <p className="px-2">
+            <CallIcon className="text-primary me-2" />
+            +2 392 3929 210
+          </p>
+          <p className="px-2">
+            <EmailIcon className="text-primary me-2" />
+            emailaddress@domain.com
+          </p>
         </Col>
       </Row>
       <div className={styles.footerDiv}>Copyright ©2025 All rights reserved | This website is made with by shubhamstr</div>
