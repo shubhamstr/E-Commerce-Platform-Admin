@@ -78,15 +78,6 @@ const PopularProducts = () => {
           );
         })}
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
     </Container>
   );
 };

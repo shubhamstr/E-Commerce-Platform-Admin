@@ -4,6 +4,6 @@
   margin-left: auto;
   height: calc(100vh - 80px);
   background-image: url('/model_3.png');
-  background-color: top center;
+  background-position: top center;
   background-size: cover;
 }

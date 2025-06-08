@@ -1,0 +1,23 @@
+.collectionLeft {
+  position: relative;
+  /* width: 70%; */
+  margin-left: auto;
+  height: calc(100vh - 80px);
+  background-image: url('/model_4.png');
+  background-position: top center;
+  background-size: cover;
+  background-color: #F9F9F9;
+  padding: 15px;
+}
+
+.collectionRight {
+  position: relative;
+  /* width: 70%; */
+  margin-left: auto;
+  height: calc(100vh - 80px);
+  background-image: url('/model_5.png');
+  background-position: top center;
+  background-size: cover;
+  background-color: #F9F9F9;
+  padding: 15px;
+}
