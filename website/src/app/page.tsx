@@ -29,15 +29,6 @@ export default function Home() {
           <MostRatedProducts />
         </Col>
       </Row>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
     </Container>
   );
 }

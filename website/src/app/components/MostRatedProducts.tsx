@@ -84,15 +84,6 @@ const MostRatedProducts = () => {
           );
         })}
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
     </Container>
   );
 };

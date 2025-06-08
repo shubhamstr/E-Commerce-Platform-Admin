@@ -30,7 +30,7 @@ function Header(args: any) {
     <div>
       <Navbar {...args}>
         <Container fluid="sm" className="d-flex justify-content-between align-ietms-center flex-wrap">
-          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <NavbarBrand href="/" className='text-uppercase'>Guest Market</NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="me-auto" navbar>
