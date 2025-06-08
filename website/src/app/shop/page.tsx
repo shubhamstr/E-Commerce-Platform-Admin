@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import LandingSection from '../components/LandingSection';
 import BreadcrumbCompo from '../components/BreadcrumbCompo';
-// import styles from './page.module.css';
+import ShopContent from '../components/ShopContent';
 
 const page = () => {
   return (
@@ -15,6 +15,11 @@ const page = () => {
       <Row xs="1">
         <Col>
           <BreadcrumbCompo activeScreenName="Shop" previousScreenLink="" previousScreenName="" />
+        </Col>
+      </Row>
+      <Row xs="1">
+        <Col>
+          <ShopContent />
         </Col>
       </Row>
     </Container>
