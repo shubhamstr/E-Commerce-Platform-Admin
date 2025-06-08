@@ -47,7 +47,7 @@ function Header(args: any) {
             <Nav className="ms-auto" navbar>
               <NavItem>
                 <NavLink href="/cart/">
-                  <ShoppingCartIcon />
+                  <ShoppingCartIcon /> Cart
                 </NavLink>
               </NavItem>
               {isAuthenticated ? (

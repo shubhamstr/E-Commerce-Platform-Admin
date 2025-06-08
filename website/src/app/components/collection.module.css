@@ -6,7 +6,7 @@
   background-image: url('/model_4.png');
   background-position: top center;
   background-size: cover;
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
   padding: 15px;
 }
 
@@ -18,6 +18,14 @@
   background-image: url('/model_5.png');
   background-position: top center;
   background-size: cover;
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
   padding: 15px;
+}
+
+.collectionBtn {
+  transform: translate(-50%, -50%);
+}
+
+.smallText {
+  font-size: x-small;
 }
