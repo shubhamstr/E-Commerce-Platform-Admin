@@ -13,7 +13,8 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Button
+  Button,
+  Container
   // NavbarText
 } from 'reactstrap';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -28,59 +29,61 @@ function Header(args: any) {
   return (
     <div>
       <Navbar {...args}>
-        <NavbarBrand href="/">reactstrap</NavbarBrand>
-        <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="me-auto" navbar>
-            <NavItem>
-              <NavLink href="/shop/">Shop</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/wishlist/">Wishlist</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/contact/">Contact</NavLink>
-            </NavItem>
-          </Nav>
-          <Nav className="ms-auto" navbar>
-            <NavItem>
-              <NavLink href="/cart/">
-                <ShoppingCartIcon />
-              </NavLink>
-            </NavItem>
-            {isAuthenticated ? (
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav>
-                  <AccountCircleIcon />
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>Option 1</DropdownItem>
-                  <DropdownItem>Option 2</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem
+        <Container fluid="sm" className="d-flex justify-content-between align-ietms-center flex-wrap">
+          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <NavbarToggler onClick={toggle} />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav className="me-auto" navbar>
+              <NavItem>
+                <NavLink href="/shop/">Shop</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/wishlist/">Wishlist</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/contact/">Contact</NavLink>
+              </NavItem>
+            </Nav>
+            <Nav className="ms-auto" navbar>
+              <NavItem>
+                <NavLink href="/cart/">
+                  <ShoppingCartIcon />
+                </NavLink>
+              </NavItem>
+              {isAuthenticated ? (
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav>
+                    <AccountCircleIcon />
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem>Option 1</DropdownItem>
+                    <DropdownItem>Option 2</DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem
+                      onClick={() => {
+                        setIsAuthenticated(false);
+                      }}
+                    >
+                      Logout
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              ) : (
+                <NavItem>
+                  <Button
+                    color="info"
+                    outline
                     onClick={() => {
-                      setIsAuthenticated(false);
+                      setIsAuthenticated(true);
                     }}
                   >
-                    Logout
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            ) : (
-              <NavItem>
-                <Button
-                  color="info"
-                  outline
-                  onClick={() => {
-                    setIsAuthenticated(true);
-                  }}
-                >
-                  Login
-                </Button>
-              </NavItem>
-            )}
-          </Nav>
-        </Collapse>
+                    Login
+                  </Button>
+                </NavItem>
+              )}
+            </Nav>
+          </Collapse>
+        </Container>
       </Navbar>
     </div>
   );
