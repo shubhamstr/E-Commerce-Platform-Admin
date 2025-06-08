@@ -11,7 +11,7 @@ export default function Home() {
     <Container fluid>
       <Row xs="1" style={{ backgroundColor: '#F9F9F9' }}>
         <Col>
-          <LandingSection />
+          <LandingSection bgClass="homeBg" />
         </Col>
       </Row>
       <Row xs="1">
