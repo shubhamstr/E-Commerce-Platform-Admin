@@ -3,6 +3,7 @@ import { Col, Container, Row } from 'reactstrap';
 // import styles from './page.module.css';
 import LandingSection from './components/LandingSection';
 import PopularProducts from './components/PopularProducts';
+import MostRatedProducts from './components/MostRatedProducts';
 
 export default function Home() {
   return (
@@ -13,6 +14,9 @@ export default function Home() {
         </Col>
         <Col>
           <PopularProducts />
+        </Col>
+        <Col>
+          <MostRatedProducts />
         </Col>
       </Row>
     </Container>

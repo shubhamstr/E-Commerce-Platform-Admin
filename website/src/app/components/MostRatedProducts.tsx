@@ -5,7 +5,7 @@ import { Button, Card, CardBody, CardSubtitle, CardTitle, Col, Container, Row } 
 import Image from 'next/image';
 // import styles from './landing.module.css';
 
-const PopularProducts = () => {
+const MostRatedProducts = () => {
   const [productList, setProductList] = useState<any>([]);
   useEffect(() => {
     setProductList([
@@ -46,7 +46,7 @@ const PopularProducts = () => {
     <Container fluid="sm">
       <Row xs="1" className="py-5">
         <Col>
-          <h4 className="text-black text-left text-uppercase fw-medium border-start border-primary border-4 px-3">Popular Products</h4>
+          <h4 className="text-black text-left text-uppercase fw-medium border-start border-primary border-4 px-3">Most Rated Products</h4>
         </Col>
       </Row>
       <div className="d-flex flex-wrap gap-5">
@@ -91,4 +91,4 @@ const PopularProducts = () => {
   );
 };
 
-export default PopularProducts;
+export default MostRatedProducts;
