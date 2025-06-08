@@ -58,7 +58,13 @@ const PopularProducts = () => {
                 width: '18rem'
               }}
             >
-              <Image alt="Sample" src={product.image} width={287} height={150} style={{ objectFit: 'contain' }} />
+              <Image
+                alt="Sample"
+                src={product.image}
+                width={287}
+                height={150}
+                style={{ objectFit: 'contain', backgroundColor: '#F9F9F9' }}
+              />
               <CardBody>
                 <CardTitle tag="h5">{product.title}</CardTitle>
                 <CardSubtitle className="mb-2 text-muted" tag="h6">
