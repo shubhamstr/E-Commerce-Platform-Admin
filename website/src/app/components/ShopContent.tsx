@@ -13,6 +13,9 @@ import {
   DropdownToggle,
   Input,
   Label,
+  Pagination,
+  PaginationItem,
+  PaginationLink,
   Row
 } from 'reactstrap';
 import ProductCard from './ProductCard';
@@ -105,6 +108,39 @@ const ShopContent = () => {
                 {productList.map((product: any, index: any) => {
                   return <ProductCard key={index} index={index} product={product} screen="shop" />;
                 })}
+              </div>
+            </Col>
+            <Col xs="12" sm="12" md="12">
+              <div className="d-flex justify-content-center mt-5">
+                <Pagination size="">
+                  <PaginationItem>
+                    <PaginationLink first href="#" />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink href="#" previous />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink href="#">1</PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink href="#">2</PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink href="#">3</PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink href="#">4</PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink href="#">5</PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink href="#" next />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink href="#" last />
+                  </PaginationItem>
+                </Pagination>
               </div>
             </Col>
           </Row>
