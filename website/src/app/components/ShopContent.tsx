@@ -1,14 +1,34 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Card, CardBody, CardTitle, Col, Container, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, NavLink, Row } from 'reactstrap';
-import styles from './shop.module.css';
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  Col,
+  Container,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Input,
+  Label,
+  Row
+} from 'reactstrap';
 import ProductCard from './ProductCard';
+import Slider from '@mui/material/Slider';
+import styles from './shop.module.css';
 
 const ShopContent = () => {
   const [productList, setProductList] = useState<any>([]);
   const [dropdownOpen1, setDropdownOpen1] = useState(false);
   const [dropdownOpen2, setDropdownOpen2] = useState(false);
+  const [value, setValue] = React.useState<number[]>([0, 500]);
+
+  const handleChange = (event: Event, newValue: number[]) => {
+    setValue(newValue);
+  };
+
   const toggle1 = () => setDropdownOpen1((prevState) => !prevState);
   const toggle2 = () => setDropdownOpen2((prevState) => !prevState);
 
@@ -100,20 +120,84 @@ const ShopContent = () => {
                 Categories
               </CardTitle>
               <ul className={styles.listStyle}>
-                <li className="py-1">
-                  <NavLink className="d-flex justify-content-between text-primary" href={`/shop/Women`}>
-                    <p className="m-0">Women</p> <span>(2000)</span>
-                  </NavLink>
+                <li className={`py-1 d-flex justify-content-between text-primary ${styles.pointer}`}>
+                  <p className="m-0">Women</p> <span>(2000)</span>
                 </li>
-                <li className="py-1">
-                  <NavLink className="d-flex justify-content-between text-primary" href={`/shop/Men`}>
-                    <p className="m-0">Men</p> <span>(2000)</span>
-                  </NavLink>
+                <li className={`py-1 d-flex justify-content-between text-primary ${styles.pointer}`}>
+                  <p className="m-0">Men</p> <span>(2000)</span>
                 </li>
-                <li className="py-1">
-                  <NavLink className="d-flex justify-content-between text-primary" href={`/shop/Children`}>
-                    <p className="m-0">Children</p> <span>(2000)</span>
-                  </NavLink>
+                <li className={`py-1 d-flex justify-content-between text-primary ${styles.pointer}`}>
+                  <p className="m-0">Children</p> <span>(2000)</span>
+                </li>
+              </ul>
+            </CardBody>
+          </Card>
+          <Card
+            style={{
+              width: '18rem'
+            }}
+            className="mt-3"
+          >
+            <CardBody>
+              <CardTitle tag="h6" className="fs-6 fw-medium text-uppercase mb-3">
+                Filter by Price
+              </CardTitle>
+              <div className="">
+                <Slider value={value} step={10} min={0} max={500} onChange={handleChange} valueLabelDisplay="auto" />
+                <p>
+                  ${value[0]} - ${value[1]}
+                </p>
+              </div>
+              <CardTitle tag="h6" className="fs-6 fw-medium text-uppercase mb-3 mt-5">
+                Size
+              </CardTitle>
+              <ul className={styles.listStyle}>
+                <li>
+                  <Input type="checkbox" id="smallCheck" className="me-2" />
+                  <Label className={`${styles.pointer} user-select-none`} check for="smallCheck">
+                    Small (2400)
+                  </Label>
+                </li>
+                <li>
+                  <Input type="checkbox" id="mediumCheck" className="me-2" />
+                  <Label className={`${styles.pointer} user-select-none`} check for="mediumCheck">
+                    Medium (1200)
+                  </Label>
+                </li>
+                <li>
+                  <Input type="checkbox" id="largeCheck" className="me-2" />
+                  <Label className={`${styles.pointer} user-select-none`} check for="largeCheck">
+                    Large (1300)
+                  </Label>
+                </li>
+              </ul>
+              <CardTitle tag="h6" className="fs-6 fw-medium text-uppercase mb-3 mt-5">
+                Color
+              </CardTitle>
+              <ul className={styles.listStyle}>
+                <li className={`py-1 d-flex justify-content-between text-primary ${styles.pointer}`}>
+                  <p className="m-0 d-flex align-items-center">
+                    <span className={`bg-danger color d-inline-block rounded-circle me-2 ${styles.colorTag}`}></span>
+                    <span>Red (2,429)</span>
+                  </p>
+                </li>
+                <li className={`py-1 d-flex justify-content-between text-primary ${styles.pointer}`}>
+                  <p className="m-0 d-flex align-items-center">
+                    <span className={`bg-success color d-inline-block rounded-circle me-2 ${styles.colorTag}`}></span>
+                    <span>Green (2,429)</span>
+                  </p>
+                </li>
+                <li className={`py-1 d-flex justify-content-between text-primary ${styles.pointer}`}>
+                  <p className="m-0 d-flex align-items-center">
+                    <span className={`bg-info color d-inline-block rounded-circle me-2 ${styles.colorTag}`}></span>
+                    <span>Blue (2,429)</span>
+                  </p>
+                </li>
+                <li className={`py-1 d-flex justify-content-between text-primary ${styles.pointer}`}>
+                  <p className="m-0 d-flex align-items-center">
+                    <span className={`bg-primary color d-inline-block rounded-circle me-2 ${styles.colorTag}`}></span>
+                    <span>Purple (2,429)</span>
+                  </p>
                 </li>
               </ul>
             </CardBody>

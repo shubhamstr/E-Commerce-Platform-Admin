@@ -2,3 +2,12 @@
   list-style-type: none;
   padding-left: 0;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.colorTag {
+  height: 14px;
+  width: 14px;
+}
