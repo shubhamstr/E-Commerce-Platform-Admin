@@ -4,15 +4,21 @@ import React from 'react';
 import { Card, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
 import Image from 'next/image';
 
-const ProductCard = ({ index, product }: any) => {
+const ProductCard = ({ index, product, screen }: any) => {
   return (
     <Card
       key={index}
       style={{
-        width: '18rem'
+        width: screen === 'shop' ? '24rem' : '18rem'
       }}
     >
-      <Image alt="Sample" src={product.image} width={287} height={150} style={{ objectFit: 'contain', backgroundColor: '#F9F9F9' }} />
+      <Image
+        alt="Sample"
+        src={product.image}
+        width={screen === 'shop' ? 382 : 287}
+        height={150}
+        style={{ objectFit: 'contain', backgroundColor: '#F9F9F9' }}
+      />
       <CardBody>
         <CardTitle tag="h5">{product.title}</CardTitle>
         <CardSubtitle className="mb-2 text-muted" tag="h6">

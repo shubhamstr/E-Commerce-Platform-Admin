@@ -48,9 +48,9 @@ const PopularProducts = () => {
           <h4 className="text-black text-left text-uppercase fw-medium border-start border-primary border-4 px-3">Popular Products</h4>
         </Col>
       </Row>
-      <div className="d-flex flex-wrap gap-5">
+      <div className="d-flex flex-wrap gap-5 justify-content-around">
         {productList.map((product: any, index: any) => {
-          return <ProductCard key={index} index={index} product={product} />;
+          return <ProductCard key={index} index={index} product={product} screen="home" />;
         })}
       </div>
     </Container>

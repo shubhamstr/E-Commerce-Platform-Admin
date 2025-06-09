@@ -1,13 +1,51 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardBody, CardTitle, Col, Container, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, NavLink, Row } from 'reactstrap';
 import styles from './shop.module.css';
+import ProductCard from './ProductCard';
 
 const ShopContent = () => {
+  const [productList, setProductList] = useState<any>([]);
   const [dropdownOpen1, setDropdownOpen1] = useState(false);
   const [dropdownOpen2, setDropdownOpen2] = useState(false);
   const toggle1 = () => setDropdownOpen1((prevState) => !prevState);
   const toggle2 = () => setDropdownOpen2((prevState) => !prevState);
+
+  useEffect(() => {
+    setProductList([
+      {
+        image: '/model_1.png',
+        title: 'Smooth Cloth',
+        price: 28
+      },
+      {
+        image: '/model_5.png',
+        title: 'Denim Jacket',
+        price: 28
+      },
+      {
+        image: '/model_7.png',
+        title: 'Yellow Jacket',
+        price: 58
+      },
+      {
+        image: '/prod_1.png',
+        title: 'Leather Green Bag',
+        price: 28
+      },
+      {
+        image: '/prod_2.png',
+        title: 'Gray Shoe',
+        price: 20
+      },
+      {
+        image: '/prod_3.png',
+        title: 'Blue Shoe High Heels',
+        price: 28
+      }
+    ]);
+  }, []);
 
   return (
     <Container fluid="sm">
@@ -40,6 +78,13 @@ const ShopContent = () => {
                     </DropdownMenu>
                   </Dropdown>
                 </div>
+              </div>
+            </Col>
+            <Col xs="12" sm="12" md="12">
+              <div className="d-flex flex-wrap gap-5 justify-content-around mt-3">
+                {productList.map((product: any, index: any) => {
+                  return <ProductCard key={index} index={index} product={product} screen="shop" />;
+                })}
               </div>
             </Col>
           </Row>
