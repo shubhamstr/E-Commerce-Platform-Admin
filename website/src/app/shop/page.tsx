@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import LandingSection from '../components/LandingSection';
 import BreadcrumbCompo from '../components/BreadcrumbCompo';
 import ShopContent from '../components/ShopContent';
+import Collections from '../components/Collections';
 
 const page = () => {
   return (
@@ -20,6 +21,11 @@ const page = () => {
       <Row xs="1">
         <Col>
           <ShopContent />
+        </Col>
+      </Row>
+      <Row xs="1">
+        <Col>
+          <Collections />
         </Col>
       </Row>
     </Container>

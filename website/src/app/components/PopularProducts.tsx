@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Button, Card, CardBody, CardSubtitle, CardTitle, Col, Container, Row } from 'reactstrap';
-import Image from 'next/image';
-// import styles from './landing.module.css';
+import { Col, Container, Row } from 'reactstrap';
+import ProductCard from './ProductCard';
 
 const PopularProducts = () => {
   const [productList, setProductList] = useState<any>([]);
@@ -51,37 +50,7 @@ const PopularProducts = () => {
       </Row>
       <div className="d-flex flex-wrap gap-5">
         {productList.map((product: any, index: any) => {
-          return (
-            <Card
-              key={index}
-              style={{
-                width: '18rem'
-              }}
-            >
-              <Image
-                alt="Sample"
-                src={product.image}
-                width={287}
-                height={150}
-                style={{ objectFit: 'contain', backgroundColor: '#F9F9F9' }}
-              />
-              <CardBody>
-                <CardTitle tag="h5">{product.title}</CardTitle>
-                <CardSubtitle className="mb-2 text-muted" tag="h6">
-                  ${product.price}
-                </CardSubtitle>
-                {/* <CardText>Some quick example text to build on the card title and make up the bulk of the card‘s content.</CardText> */}
-                <div className="d-flex gap-2">
-                  <Button color="primary" size="sm" outline>
-                    Add to Cart
-                  </Button>
-                  <Button color="danger" size="sm" outline>
-                    Buy Now
-                  </Button>
-                </div>
-              </CardBody>
-            </Card>
-          );
+          return <ProductCard key={index} index={index} product={product} />;
         })}
       </div>
     </Container>
