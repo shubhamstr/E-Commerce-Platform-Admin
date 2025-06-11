@@ -1,4 +1,4 @@
-# Materially Free React Material UI Dashboard Template 
+# Materially Free React Material UI Dashboard Template
 
 - [Demo](https://themewagon.github.io/materially-free-react-admin-template/)
 
@@ -30,13 +30,12 @@ or, npm i
 
 ```
 yarn start
-or, npm run start 
+or, npm run start
 ```
 
 ## Author
 
 Materially is managed by team CodedThemes.
-
 
 ## License
 
@@ -44,11 +43,15 @@ Materially is managed by team CodedThemes.
 - Licensed under [MIT]
 - Distributed by [ThemeWagon](https://themewagon.com)
 
-
-
 ## E-commerce Platform (Mini Amazon Clone)
 
-- Tech Stack: MERN Stack + Stripe/PayPal
+- Tech Stack:
+
+-- Customer Website: NextJs
+
+-- Admin/Seller Dashboard: ReactJs
+
+-- Backend Server: ExpressJs, MongoDB
 
 - Features:
 

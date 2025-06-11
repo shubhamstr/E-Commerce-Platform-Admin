@@ -1,0 +1,23 @@
+.cartTable th {
+  padding: 30px 12px;
+  text-align: center;
+}
+
+.cartTable td {
+  padding: 25px 12px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.cartTable td svg {
+  color: white !important;
+}
+
+.cartInput {
+  width: 60px;
+  text-align: center;
+}
+
+.couponInput {
+  width: 250px;
+}
