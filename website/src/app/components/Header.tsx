@@ -30,7 +30,9 @@ function Header(args: any) {
     <div>
       <Navbar {...args}>
         <Container fluid="sm" className="d-flex justify-content-between align-ietms-center flex-wrap">
-          <NavbarBrand href="/" className='text-uppercase'>Guest Market</NavbarBrand>
+          <NavbarBrand href="/" className="text-uppercase">
+            Guest Market
+          </NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="me-auto" navbar>
@@ -44,7 +46,7 @@ function Header(args: any) {
                 <NavLink href="/contact/">Contact</NavLink>
               </NavItem>
             </Nav>
-            <Nav className="ms-auto" navbar>
+            <Nav className="d-flex gap-2" navbar>
               <NavItem>
                 <NavLink href="/cart/">
                   <ShoppingCartIcon /> Cart
@@ -69,17 +71,32 @@ function Header(args: any) {
                   </DropdownMenu>
                 </UncontrolledDropdown>
               ) : (
-                <NavItem>
-                  <Button
-                    color="info"
-                    outline
-                    onClick={() => {
-                      setIsAuthenticated(true);
-                    }}
-                  >
-                    Login
-                  </Button>
-                </NavItem>
+                <>
+                  <NavItem>
+                    <Button
+                      className="text-white"
+                      color="info"
+                      outline
+                      onClick={() => {
+                        // setIsAuthenticated(true);
+                      }}
+                    >
+                      Login
+                    </Button>
+                  </NavItem>
+                  <NavItem>
+                    <Button
+                      className="text-white"
+                      color="info"
+                      outline
+                      onClick={() => {
+                        // setIsAuthenticated(true);
+                      }}
+                    >
+                      Register
+                    </Button>
+                  </NavItem>
+                </>
               )}
             </Nav>
           </Collapse>
