@@ -17,10 +17,12 @@ import {
   Container
   // NavbarText
 } from 'reactstrap';
+import { useRouter } from 'next/navigation';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 function Header(args: any) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -78,7 +80,7 @@ function Header(args: any) {
                       color="info"
                       outline
                       onClick={() => {
-                        // setIsAuthenticated(true);
+                        router.push('/login');
                       }}
                     >
                       Login
@@ -90,7 +92,7 @@ function Header(args: any) {
                       color="info"
                       outline
                       onClick={() => {
-                        // setIsAuthenticated(true);
+                        router.push('/register');
                       }}
                     >
                       Register
