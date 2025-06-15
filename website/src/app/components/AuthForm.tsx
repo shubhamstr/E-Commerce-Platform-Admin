@@ -16,8 +16,8 @@ const AuthForm = ({ type }: any) => {
         <Col
           xs="12"
           sm={{
-            offset: 3,
-            size: 6
+            offset: 4,
+            size: 4
           }}
         >
           {type === 'register' && (
