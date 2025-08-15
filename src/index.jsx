@@ -12,6 +12,7 @@ import { Provider } from 'react-redux';
 // project import
 import App from 'layout/App';
 import reducer from 'store/reducer';
+import GlobalToast from '../src/component/GlobalToast';
 
 const store = configureStore({ reducer });
 
@@ -23,6 +24,7 @@ root.render(
   <Provider store={store}>
     <BrowserRouter basename={import.meta.env.VITE_APP_BASE_NAME}>
       <App />
+      <GlobalToast />
     </BrowserRouter>
   </Provider>
 );
