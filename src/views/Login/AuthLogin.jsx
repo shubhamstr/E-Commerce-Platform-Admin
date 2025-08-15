@@ -108,10 +108,9 @@ const AuthLogin = ({ ...rest }) => {
             password: payload.password
           });
           const { success, message, data, error } = res.data;
-          console.log(success, message, data);
           if (success) {
             showSuccess(message);
-            console.log(data);
+            // console.log(data);
             if (data) {
               localStorage.setItem('ecomAdminToken', data.token);
               dispatch(login());
