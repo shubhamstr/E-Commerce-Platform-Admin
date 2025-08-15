@@ -4,10 +4,17 @@ import * as actionTypes from './actions';
 // ==============================|| CUSTOMIZATION REDUCER ||============================== //
 
 export const initialState = {
-  isAuthenticated: false
+  isAuthenticated: false,
+  userData: {
+    userId: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+    userType: ''
+  }
 };
 
-const customizationReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOGIN:
       return {
@@ -19,9 +26,14 @@ const customizationReducer = (state = initialState, action) => {
         ...state,
         isAuthenticated: false
       };
+    case actionTypes.SET_USER:
+      return {
+        ...state,
+        userData: action.payload
+      };
     default:
       return state;
   }
 };
 
-export default customizationReducer;
+export default authReducer;

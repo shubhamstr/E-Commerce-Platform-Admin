@@ -27,9 +27,11 @@ import { Formik } from 'formik';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Google from 'assets/images/social-google.svg';
+import { showError, showSuccess } from '../Utils/toast';
+import { loginUser } from '../../services/authService';
 
 import { useDispatch } from 'react-redux';
-import { login } from 'store/actions';
+import { login, setUser } from 'store/actions';
 
 // ==============================|| FIREBASE LOGIN ||============================== //
 
@@ -93,16 +95,42 @@ const AuthLogin = ({ ...rest }) => {
       <Formik
         initialValues={{
           email: '',
-          password: '',
-          submit: null
+          password: ''
         }}
         validationSchema={Yup.object().shape({
           email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
           password: Yup.string().max(255).required('Password is required')
         })}
-        onSubmit={() => {
-          dispatch(login({}));
-          navigate('/');
+        onSubmit={async (payload) => {
+          // console.log(payload);
+          const res = await loginUser({
+            email: payload.email,
+            password: payload.password
+          });
+          const { success, message, data, error } = res.data;
+          console.log(success, message, data);
+          if (success) {
+            showSuccess(message);
+            console.log(data);
+            if (data) {
+              localStorage.setItem('ecomAdminToken', data.token);
+              dispatch(login());
+              const { id, firstName, lastName, email, userType } = data.userResp;
+              dispatch(
+                setUser({
+                  userId: id,
+                  email: email,
+                  firstName: firstName,
+                  lastName: lastName,
+                  userType: userType
+                })
+              );
+              navigate('/');
+            }
+          } else {
+            showError(message);
+            console.error('Server error:', error);
+          }
         }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
