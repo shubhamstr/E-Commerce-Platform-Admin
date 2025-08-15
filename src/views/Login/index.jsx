@@ -60,7 +60,7 @@ const Login = () => {
               <Grid item xs={12}>
                 <AuthLogin />
               </Grid>
-              <Grid container justifyContent="flex-start" sx={{ mt: theme.spacing(2), mb: theme.spacing(1) }}>
+              {/* <Grid container justifyContent="flex-start" sx={{ mt: theme.spacing(2), mb: theme.spacing(1) }}>
                 <Grid item>
                   <Typography
                     variant="subtitle2"
@@ -72,7 +72,7 @@ const Login = () => {
                     Create new account
                   </Typography>
                 </Grid>
-              </Grid>
+              </Grid> */}
             </Grid>
           </CardContent>
         </Card>

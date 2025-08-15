@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -48,7 +49,7 @@ const AuthLogin = ({ ...rest }) => {
 
   return (
     <>
-      <Grid container justifyContent="center">
+      {/* <Grid container justifyContent="center">
         <Grid item xs={12}>
           <Button
             fullWidth={true}
@@ -79,15 +80,15 @@ const AuthLogin = ({ ...rest }) => {
             Sign in with Google
           </Button>
         </Grid>
-      </Grid>
+      </Grid> */}
 
-      <Box alignItems="center" display="flex" mt={2}>
+      {/* <Box alignItems="center" display="flex" mt={2}>
         <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
         <Typography color="textSecondary" variant="h5" sx={{ m: theme.spacing(2) }}>
           OR
         </Typography>
         <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
-      </Box>
+      </Box> */}
 
       <Formik
         initialValues={{
