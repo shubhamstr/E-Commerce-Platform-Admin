@@ -3,9 +3,21 @@ name: Node - SSH deploy
 # Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    # inputs:
+    #   name:
+    #     # Friendly description to be shown in the UI instead of 'name'
+    #     description: 'Person to greet'
+    #     # Default value if no value is explicitly provided
+    #     default: 'World'
+    #     # Input has to be provided for the workflow to run
+    #     required: true
+    #     # The data type of the input
+    #     type: string
 
 jobs:
   SFTP-deploy:
@@ -26,14 +38,14 @@ jobs:
           yarn
           yarn build
 
-      - name: 📂 Deploy to Server
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          # ARGS: "-rltgoDzvO --delete"
-          SOURCE: 'dist/'
-          REMOTE_HOST: 154.49.240.71
-          REMOTE_USER: u778408432
-          REMOTE_PORT: '65002'
-          TARGET: domains/codedthemes.com/public_html/demos/admin-templates/materially/react/free
-          EXCLUDE: '/dist/, /node_modules/'
+      # - name: 📂 Deploy to Server
+      #   uses: easingthemes/ssh-deploy@main
+      #   env:
+      #     SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+      #     # ARGS: "-rltgoDzvO --delete"
+      #     SOURCE: 'dist/'
+      #     REMOTE_HOST: 154.49.240.71
+      #     REMOTE_USER: u778408432
+      #     REMOTE_PORT: '65002'
+      #     TARGET: domains/codedthemes.com/public_html/demos/admin-templates/materially/react/free
+      #     EXCLUDE: '/dist/, /node_modules/'
