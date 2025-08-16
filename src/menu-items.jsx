@@ -8,8 +8,10 @@ import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 import ChromeReaderModeOutlinedIcon from '@mui/icons-material/ChromeReaderModeOutlined';
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import PeopleIcon from '@mui/icons-material/People';
 
 const icons = {
+  PeopleIcon: PeopleIcon,
   NavigationOutlinedIcon: NavigationOutlinedIcon,
   HomeOutlinedIcon: HomeOutlinedIcon,
   ChromeReaderModeOutlinedIcon: ChromeReaderModeOutlinedIcon,
@@ -50,84 +52,91 @@ export default {
       icon: icons['NavigationOutlinedIcon'],
       children: [
         {
+          id: 'manage-users',
+          title: 'Manage Users',
+          type: 'item',
+          url: '/manage-users',
+          icon: icons['PeopleIcon']
+        },
+        {
           id: 'sample-page',
           title: 'Sample Page',
           type: 'item',
           url: '/sample-page',
           icon: icons['ChromeReaderModeOutlinedIcon']
-        },
-        {
-          id: 'auth',
-          title: 'Authentication',
-          type: 'collapse',
-          icon: icons['SecurityOutlinedIcon'],
-          children: [
-            {
-              id: 'login-1',
-              title: 'Login',
-              type: 'item',
-              url: '/application/login',
-              target: true
-            },
-            {
-              id: 'register',
-              title: 'Register',
-              type: 'item',
-              url: '/application/register',
-              target: true
-            }
-          ]
         }
-      ]
-    },
-    {
-      id: 'utils',
-      title: 'Utils',
-      type: 'group',
-      icon: icons['AccountTreeOutlinedIcon'],
-      children: [
-        {
-          id: 'util-icons',
-          title: 'Icons',
-          type: 'item',
-          url: 'https://mui.com/material-ui/material-icons/',
-          icon: icons['AppsOutlinedIcon'],
-          external: true,
-          target: true
-        },
-        {
-          id: 'util-typography',
-          title: 'Typography',
-          type: 'item',
-          url: '/utils/util-typography',
-          icon: icons['FormatColorTextOutlinedIcon']
-        }
-      ]
-    },
-    {
-      id: 'support',
-      title: 'Support',
-      type: 'group',
-      icon: icons['ContactSupportOutlinedIcon'],
-      children: [
-        {
-          id: 'disabled-menu',
-          title: 'Disabled Menu',
-          type: 'item',
-          url: '#',
-          icon: icons['BlockOutlinedIcon'],
-          disabled: true
-        },
-        {
-          id: 'documentation',
-          title: 'Documentation',
-          type: 'item',
-          url: 'https://codedthemes.gitbook.io/materially-react-material-documentation/',
-          icon: icons['HelpOutlineOutlinedIcon'],
-          external: true,
-          target: true
-        }
+        // {
+        //   id: 'auth',
+        //   title: 'Authentication',
+        //   type: 'collapse',
+        //   icon: icons['SecurityOutlinedIcon'],
+        //   children: [
+        //     {
+        //       id: 'login-1',
+        //       title: 'Login',
+        //       type: 'item',
+        //       url: '/login',
+        //       target: true
+        //     },
+        //     {
+        //       id: 'register',
+        //       title: 'Register',
+        //       type: 'item',
+        //       url: '/register',
+        //       target: true
+        //     }
+        //   ]
+        // }
       ]
     }
+    // {
+    //   id: 'utils',
+    //   title: 'Utils',
+    //   type: 'group',
+    //   icon: icons['AccountTreeOutlinedIcon'],
+    //   children: [
+    //     {
+    //       id: 'util-icons',
+    //       title: 'Icons',
+    //       type: 'item',
+    //       url: 'https://mui.com/material-ui/material-icons/',
+    //       icon: icons['AppsOutlinedIcon'],
+    //       external: true,
+    //       target: true
+    //     },
+    //     {
+    //       id: 'util-typography',
+    //       title: 'Typography',
+    //       type: 'item',
+    //       url: '/utils/util-typography',
+    //       icon: icons['FormatColorTextOutlinedIcon']
+    //     }
+    //   ]
+    // },
+    // {
+    //   id: 'support',
+    //   title: 'Support',
+    //   type: 'group',
+    //   icon: icons['ContactSupportOutlinedIcon'],
+    //   children: [
+    //     {
+    //       id: 'disabled-menu',
+    //       title: 'Disabled Menu',
+    //       type: 'item',
+    //       url: '#',
+    //       icon: icons['BlockOutlinedIcon'],
+    //       disabled: true
+    //     },
+    //     {
+    //       id: 'documentation',
+    //       title: 'Documentation',
+    //       type: 'item',
+    //       url: 'https://codedthemes.gitbook.io/materially-react-material-documentation/',
+    //       icon: icons['HelpOutlineOutlinedIcon'],
+    //       external: true,
+    //       target: true
+    //     }
+    //   ]
+    // }
   ]
 };

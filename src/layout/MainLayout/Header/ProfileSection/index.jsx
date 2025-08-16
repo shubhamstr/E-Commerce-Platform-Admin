@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -12,9 +13,14 @@ import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
 import MeetingRoomTwoToneIcon from '@mui/icons-material/MeetingRoomTwoTone';
 
+import { useDispatch } from 'react-redux';
+import { logout } from 'store/actions';
+
 // ==============================|| PROFILE SECTION ||============================== //
 
 const ProfileSection = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const theme = useTheme();
 
   const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -119,7 +125,13 @@ const ProfileSection = () => {
                     </ListItemIcon>
                     <ListItemText primary="Lock Screen" />
                   </ListItemButton>
-                  <ListItemButton selected={selectedIndex === 4}>
+                  <ListItemButton
+                    selected={selectedIndex === 4}
+                    onClick={() => {
+                      dispatch(logout({}));
+                      navigate('/login');
+                    }}
+                  >
                     <ListItemIcon>
                       <MeetingRoomTwoToneIcon />
                     </ListItemIcon>

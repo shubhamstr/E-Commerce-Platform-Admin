@@ -3,16 +3,22 @@ import React, { lazy } from 'react';
 // project import
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'component/Loadable';
+import ProtectedRoute from './ProtectedRoute';
 
 const DashboardDefault = Loadable(lazy(() => import('views/Dashboard/Default')));
 const UtilsTypography = Loadable(lazy(() => import('views/Utils/Typography')));
 const SamplePage = Loadable(lazy(() => import('views/SamplePage')));
+const ManageUsers = Loadable(lazy(() => import('views/ManageUsers')));
 
 // ==============================|| MAIN ROUTES ||============================== //
 
 const MainRoutes = {
   path: '/',
-  element: <MainLayout />,
+  element: (
+    <ProtectedRoute>
+      <MainLayout />
+    </ProtectedRoute>
+  ),
   children: [
     {
       path: '/',
@@ -23,7 +29,8 @@ const MainRoutes = {
       element: <DashboardDefault />
     },
     { path: '/utils/util-typography', element: <UtilsTypography /> },
-    { path: '/sample-page', element: <SamplePage /> }
+    { path: '/sample-page', element: <SamplePage /> },
+    { path: '/manage-users', element: <ManageUsers /> }
   ]
 };
 

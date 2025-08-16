@@ -1,4 +1,7 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -25,10 +28,19 @@ import { Formik } from 'formik';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Google from 'assets/images/social-google.svg';
+import { showError, showSuccess } from '../Utils/toast';
+import { loginUser, userExists } from '../../services/authService';
+
+import { useDispatch } from 'react-redux';
+import { login, setUser, logout } from 'store/actions';
+
+import { jwtDecode } from 'jwt-decode';
 
 // ==============================|| FIREBASE LOGIN ||============================== //
 
 const AuthLogin = ({ ...rest }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const theme = useTheme();
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -40,9 +52,43 @@ const AuthLogin = ({ ...rest }) => {
     event.preventDefault();
   };
 
+  const checkUser = async (decoded, token) => {
+    const res = await userExists(decoded.userId, {
+      token
+    });
+    const { success, message, data, error } = res.data;
+    if (success) {
+      dispatch(login());
+      const { id, firstName, lastName, email, userType } = data;
+      dispatch(
+        setUser({
+          userId: id,
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+          userType: userType
+        })
+      );
+      navigate('/');
+    } else {
+      // dispatch(logout({}));
+      // navigate('/login');
+    }
+  };
+
+  useEffect(() => {
+    if (localStorage.ecomAdminToken) {
+      const token = localStorage.ecomAdminToken;
+      // console.log(token);
+      const decoded = jwtDecode(token);
+      console.log(decoded);
+      checkUser(decoded, token);
+    }
+  }, []);
+
   return (
     <>
-      <Grid container justifyContent="center">
+      {/* <Grid container justifyContent="center">
         <Grid item xs={12}>
           <Button
             fullWidth={true}
@@ -73,26 +119,55 @@ const AuthLogin = ({ ...rest }) => {
             Sign in with Google
           </Button>
         </Grid>
-      </Grid>
+      </Grid> */}
 
-      <Box alignItems="center" display="flex" mt={2}>
+      {/* <Box alignItems="center" display="flex" mt={2}>
         <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
         <Typography color="textSecondary" variant="h5" sx={{ m: theme.spacing(2) }}>
           OR
         </Typography>
         <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
-      </Box>
+      </Box> */}
 
       <Formik
         initialValues={{
           email: '',
-          password: '',
-          submit: null
+          password: ''
         }}
         validationSchema={Yup.object().shape({
           email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
           password: Yup.string().max(255).required('Password is required')
         })}
+        onSubmit={async (payload) => {
+          // console.log(payload);
+          const res = await loginUser({
+            email: payload.email,
+            password: payload.password
+          });
+          const { success, message, data, error } = res.data;
+          if (success) {
+            showSuccess(message);
+            // console.log(data);
+            if (data) {
+              localStorage.setItem('ecomAdminToken', data.token);
+              dispatch(login());
+              const { id, firstName, lastName, email, userType } = data.userResp;
+              dispatch(
+                setUser({
+                  userId: id,
+                  email: email,
+                  firstName: firstName,
+                  lastName: lastName,
+                  userType: userType
+                })
+              );
+              navigate('/');
+            }
+          } else {
+            showError(message);
+            console.error('Server error:', error);
+          }
+        }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit} {...rest}>

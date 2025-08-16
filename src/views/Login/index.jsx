@@ -46,9 +46,9 @@ const Login = () => {
                     <Typography color="textPrimary" gutterBottom variant="h2">
                       Sign in
                     </Typography>
-                    <Typography variant="body2" color="textSecondary">
+                    {/* <Typography variant="body2" color="textSecondary">
                       To keep connected with us.
-                    </Typography>
+                    </Typography> */}
                   </Grid>
                   <Grid item>
                     <RouterLink to="/">
@@ -60,7 +60,7 @@ const Login = () => {
               <Grid item xs={12}>
                 <AuthLogin />
               </Grid>
-              <Grid container justifyContent="flex-start" sx={{ mt: theme.spacing(2), mb: theme.spacing(1) }}>
+              {/* <Grid container justifyContent="flex-start" sx={{ mt: theme.spacing(2), mb: theme.spacing(1) }}>
                 <Grid item>
                   <Typography
                     variant="subtitle2"
@@ -72,7 +72,7 @@ const Login = () => {
                     Create new account
                   </Typography>
                 </Grid>
-              </Grid>
+              </Grid> */}
             </Grid>
           </CardContent>
         </Card>

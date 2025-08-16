@@ -12,7 +12,7 @@ import { Provider } from 'react-redux';
 // project import
 import App from 'layout/App';
 import reducer from 'store/reducer';
-import * as serviceWorker from 'serviceWorker';
+import GlobalToast from '../src/component/GlobalToast';
 
 const store = configureStore({ reducer });
 
@@ -24,11 +24,7 @@ root.render(
   <Provider store={store}>
     <BrowserRouter basename={import.meta.env.VITE_APP_BASE_NAME}>
       <App />
+      <GlobalToast />
     </BrowserRouter>
   </Provider>
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
