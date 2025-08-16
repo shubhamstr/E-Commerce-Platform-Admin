@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // material-ui
@@ -28,10 +29,12 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Google from 'assets/images/social-google.svg';
 import { showError, showSuccess } from '../Utils/toast';
-import { loginUser } from '../../services/authService';
+import { loginUser, userExists } from '../../services/authService';
 
 import { useDispatch } from 'react-redux';
-import { login, setUser } from 'store/actions';
+import { login, setUser, logout } from 'store/actions';
+
+import { jwtDecode } from 'jwt-decode';
 
 // ==============================|| FIREBASE LOGIN ||============================== //
 
@@ -48,6 +51,40 @@ const AuthLogin = ({ ...rest }) => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const checkUser = async (decoded, token) => {
+    const res = await userExists(decoded.userId, {
+      token
+    });
+    const { success, message, data, error } = res.data;
+    if (success) {
+      dispatch(login());
+      const { id, firstName, lastName, email, userType } = data;
+      dispatch(
+        setUser({
+          userId: id,
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+          userType: userType
+        })
+      );
+      navigate('/');
+    } else {
+      // dispatch(logout({}));
+      // navigate('/login');
+    }
+  };
+
+  useEffect(() => {
+    if (localStorage.ecomAdminToken) {
+      const token = localStorage.ecomAdminToken;
+      // console.log(token);
+      const decoded = jwtDecode(token);
+      console.log(decoded);
+      checkUser(decoded, token);
+    }
+  }, []);
 
   return (
     <>
