@@ -45,9 +45,9 @@ export default {
       ]
     },
     {
-      id: 'pages',
-      title: 'Pages',
-      caption: 'Prebuild Pages',
+      id: 'manage',
+      title: 'Manage',
+      // caption: 'Prebuild Pages',
       type: 'group',
       icon: icons['NavigationOutlinedIcon'],
       children: [

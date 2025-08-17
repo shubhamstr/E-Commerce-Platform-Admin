@@ -8,6 +8,8 @@ import 'assets/scss/style.scss';
 // third party
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
+import { PrimeReactProvider } from 'primereact/api';
+import 'primereact/resources/themes/lara-light-cyan/theme.css';
 
 // project import
 import App from 'layout/App';
@@ -22,9 +24,11 @@ const root = createRoot(document.getElementById('root'));
 
 root.render(
   <Provider store={store}>
-    <BrowserRouter basename={import.meta.env.VITE_APP_BASE_NAME}>
-      <App />
-      <GlobalToast />
-    </BrowserRouter>
+    <PrimeReactProvider>
+      <BrowserRouter basename={import.meta.env.VITE_APP_BASE_NAME}>
+        <App />
+        <GlobalToast />
+      </BrowserRouter>
+    </PrimeReactProvider>
   </Provider>
 );
