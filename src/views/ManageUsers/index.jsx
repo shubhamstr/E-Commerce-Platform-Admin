@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -26,16 +27,38 @@ import styles from './styles.module.css';
 const ManageUsers = () => {
   const auth = useSelector((state) => state.auth);
   const [usersList, setUsersList] = useState([]);
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [lazyParams, setLazyParams] = useState({
+    first: 0,
+    rows: 5,
+    sortField: '',
+    sortOrder: 1,
+    filters: {}
+  });
 
   const getUsers = async () => {
-    const res = await getAllUsers();
+    setLoading(true);
+    const options = {
+      params: {
+        page: lazyParams.first / lazyParams.rows + 1,
+        limit: lazyParams.rows,
+        sortField: lazyParams.sortField,
+        sortOrder: lazyParams.sortOrder,
+        filters: JSON.stringify(lazyParams.filters)
+      }
+    };
+    const res = await getAllUsers(options);
     const { success, message, data, error } = res.data;
     if (success) {
-      showSuccess(message);
-      setUsersList(data);
+      // showSuccess(message);
+      setUsersList(data.records);
+      setTotalRecords(data.total);
+      setLoading(false);
     } else {
       console.error(error);
       showError(message);
+      setLoading(false);
     }
   };
 
@@ -75,7 +98,7 @@ const ManageUsers = () => {
 
   useEffect(() => {
     getUsers();
-  }, []);
+  }, [lazyParams]);
 
   return (
     <>
@@ -90,7 +113,18 @@ const ManageUsers = () => {
       <Grid container spacing={gridSpacing}>
         <Grid item xs={12}>
           <Card>
-            <DataTable value={usersList} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}>
+            <DataTable
+              value={usersList}
+              lazy
+              paginator
+              first={lazyParams.first}
+              rows={lazyParams.rows}
+              totalRecords={totalRecords}
+              loading={loading}
+              onPage={(e) => setLazyParams({ ...lazyParams, first: e.first, rows: e.rows })}
+              rowsPerPageOptions={[5, 10, 25, 50]}
+              tableStyle={{ minWidth: '50rem' }}
+            >
               <Column field="firstName" header="First Name" sortable></Column>
               <Column field="lastName" header="Last Name" sortable></Column>
               <Column field="mobileNumber" header="Mobile Number" sortable></Column>
