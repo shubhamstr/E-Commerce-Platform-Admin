@@ -22,6 +22,6 @@ export function logout(data) {
 export function setUser(data) {
   return {
     type: SET_USER,
-    payload: { data }
+    payload: { ...data }
   };
 }
