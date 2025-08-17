@@ -14,6 +14,7 @@ import AddIcon from '@mui/icons-material/Add';
 // table
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { FilterMatchMode } from 'primereact/api';
 
 // project import
 import BreadcrumbButton from 'component/BreadcrumbButton';
@@ -34,7 +35,13 @@ const ManageUsers = () => {
     rows: 5,
     sortField: 'createdAt',
     sortOrder: -1,
-    filters: {}
+    filters: {
+      global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+      email: { value: null, matchMode: FilterMatchMode.CONTAINS },
+      userType: { value: null, matchMode: FilterMatchMode.CONTAINS },
+      isLogin: { value: null, matchMode: FilterMatchMode.EQUALS },
+      createdAt: { value: null, matchMode: FilterMatchMode.EQUALS }
+    }
   });
 
   const getUsers = async () => {
@@ -117,6 +124,9 @@ const ManageUsers = () => {
               value={usersList}
               lazy
               paginator
+              filters={lazyParams.filters}
+              globalFilterFields={['email', 'userType', 'isLogin', 'createdAt']}
+              filterDisplay="row"
               totalRecords={totalRecords}
               loading={loading}
               onPage={(e) => {
@@ -134,13 +144,13 @@ const ManageUsers = () => {
               rowsPerPageOptions={[5, 10, 25, 50]}
               tableStyle={{ minWidth: '50rem' }}
             >
-              <Column field="firstName" header="First Name" sortable></Column>
-              <Column field="lastName" header="Last Name" sortable></Column>
-              <Column field="mobileNumber" header="Mobile Number" sortable></Column>
-              <Column field="email" header="Email" sortable></Column>
-              <Column field="userType" header="User Type" sortable></Column>
-              <Column field="isLogin" header="Is Login" body={loginTemplate}></Column>
-              <Column field="createdAt" header="Created At" sortable body={dateTemplate} style={{ minWidth: '13rem' }}></Column>
+              {/* <Column field="firstName" header="First Name" sortable filter></Column> */}
+              {/* <Column field="lastName" header="Last Name" sortable filter></Column> */}
+              {/* <Column field="mobileNumber" header="Mobile Number" sortable filter></Column> */}
+              <Column field="email" header="Email" sortable filter></Column>
+              <Column field="userType" header="User Type" sortable filter></Column>
+              <Column field="isLogin" header="Is Login" body={loginTemplate} filter></Column>
+              <Column field="createdAt" header="Created At" sortable body={dateTemplate} style={{ minWidth: '13rem' }} filter></Column>
               <Column header="Actions" body={actionBodyTemplate} style={{ minWidth: '12rem' }}></Column>
             </DataTable>
           </Card>
