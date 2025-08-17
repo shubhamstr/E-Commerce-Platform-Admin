@@ -22,6 +22,7 @@ import { gridSpacing } from 'config.js';
 import { getAllUsers } from '../../services/authService';
 import { showSuccess, showError } from '../Utils/toast';
 import styles from './styles.module.css';
+import AddEditUserModal from './AddEditUserModal';
 
 // ==============================|| MANAGE USERS ||============================== //
 
@@ -43,6 +44,14 @@ const ManageUsers = () => {
       createdAt: { value: null, matchMode: FilterMatchMode.EQUALS }
     }
   });
+  const [userId, setUserId] = useState(null);
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const getUsers = async () => {
     setLoading(true);
@@ -75,6 +84,7 @@ const ManageUsers = () => {
     if (auth.userData.userId === rowData.id) {
       isDisabled = true;
     }
+    setUserId(rowData.id);
     return (
       <React.Fragment>
         <Button variant="contained" disabled={isDisabled} className={styles.rightMargin} onClick={() => editProduct(rowData)}>
@@ -97,7 +107,7 @@ const ManageUsers = () => {
 
   const AddAction = () => {
     return (
-      <Button variant="contained" onClick={() => editProduct(rowData)}>
+      <Button variant="contained" onClick={handleClickOpen}>
         <AddIcon />
       </Button>
     );
@@ -156,6 +166,7 @@ const ManageUsers = () => {
           </Card>
         </Grid>
       </Grid>
+      <AddEditUserModal handleClose={handleClose} userId={userId} open={open} />
     </>
   );
 };
