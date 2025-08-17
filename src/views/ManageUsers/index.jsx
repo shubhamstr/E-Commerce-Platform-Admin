@@ -3,17 +3,21 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 // material-ui
-import { Card, CardHeader, CardContent, Divider, Grid, Typography } from '@mui/material';
+import { Card, CardHeader, CardContent, Divider, Grid, Typography, Button } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 
 // table
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 
 // project import
-import Breadcrumb from 'component/Breadcrumb';
+import BreadcrumbButton from 'component/BreadcrumbButton';
 import { gridSpacing } from 'config.js';
 import { getAllUsers } from '../../services/authService';
 import { showSuccess, showError } from '../Utils/toast';
+import styles from './styles.module.css';
 
 // ==============================|| MANAGE USERS ||============================== //
 
@@ -32,20 +36,41 @@ const ManageUsers = () => {
     }
   };
 
+  const actionBodyTemplate = (rowData) => {
+    return (
+      <React.Fragment>
+        <Button variant="contained" className={styles.rightMargin} onClick={() => editProduct(rowData)}>
+          <EditIcon />
+        </Button>
+        <Button variant="contained" color="error" className="mr-2" onClick={() => confirmDeleteProduct(rowData)}>
+          <DeleteIcon />
+        </Button>
+      </React.Fragment>
+    );
+  };
+
+  const AddAction = () => {
+    return (
+      <Button variant="contained" onClick={() => editProduct(rowData)}>
+        <AddIcon />
+      </Button>
+    );
+  };
+
   useEffect(() => {
     getUsers();
   }, []);
 
   return (
     <>
-      <Breadcrumb title="Manage Users">
+      <BreadcrumbButton title="Manage Users" action={<AddAction />}>
         <Typography component={Link} to="/" variant="subtitle2" color="inherit" className="link-breadcrumb">
           Home
         </Typography>
         <Typography variant="subtitle2" color="primary" className="link-breadcrumb">
           Manage Users
         </Typography>
-      </Breadcrumb>
+      </BreadcrumbButton>
       <Grid container spacing={gridSpacing}>
         <Grid item xs={12}>
           <Card>
@@ -57,6 +82,7 @@ const ManageUsers = () => {
               <Column field="userType" header="User Type" sortable></Column>
               <Column field="isLogin" header="Is Login"></Column>
               <Column field="createdAt" header="Created At" sortable></Column>
+              <Column header="Actions" body={actionBodyTemplate} style={{ minWidth: '12rem' }}></Column>
             </DataTable>
           </Card>
         </Grid>
