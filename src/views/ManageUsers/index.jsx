@@ -32,8 +32,8 @@ const ManageUsers = () => {
   const [lazyParams, setLazyParams] = useState({
     first: 0,
     rows: 5,
-    sortField: '',
-    sortOrder: 1,
+    sortField: 'createdAt',
+    sortOrder: -1,
     filters: {}
   });
 
