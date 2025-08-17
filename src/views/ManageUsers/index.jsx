@@ -117,11 +117,20 @@ const ManageUsers = () => {
               value={usersList}
               lazy
               paginator
-              first={lazyParams.first}
-              rows={lazyParams.rows}
               totalRecords={totalRecords}
               loading={loading}
-              onPage={(e) => setLazyParams({ ...lazyParams, first: e.first, rows: e.rows })}
+              onPage={(e) => {
+                console.log(e);
+                setLazyParams({ ...lazyParams, first: e.first, rows: e.rows });
+              }}
+              first={lazyParams.first}
+              rows={lazyParams.rows}
+              onSort={(e) => {
+                console.log(e);
+                setLazyParams({ ...lazyParams, sortField: e.sortField, sortOrder: e.sortOrder });
+              }}
+              sortField={lazyParams.sortField}
+              sortOrder={lazyParams.sortOrder}
               rowsPerPageOptions={[5, 10, 25, 50]}
               tableStyle={{ minWidth: '50rem' }}
             >
