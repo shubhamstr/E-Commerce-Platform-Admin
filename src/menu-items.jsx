@@ -9,9 +9,11 @@ import ChromeReaderModeOutlinedIcon from '@mui/icons-material/ChromeReaderModeOu
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import PeopleIcon from '@mui/icons-material/People';
+import CategoryIcon from '@mui/icons-material/Category';
 
 const icons = {
   PeopleIcon: PeopleIcon,
+  CategoryIcon: CategoryIcon,
   NavigationOutlinedIcon: NavigationOutlinedIcon,
   HomeOutlinedIcon: HomeOutlinedIcon,
   ChromeReaderModeOutlinedIcon: ChromeReaderModeOutlinedIcon,
@@ -57,6 +59,13 @@ export default {
           type: 'item',
           url: '/manage-users',
           icon: icons['PeopleIcon']
+        },
+        {
+          id: 'manage-categories',
+          title: 'Manage Categories',
+          type: 'item',
+          url: '/manage-categories',
+          icon: icons['CategoryIcon']
         },
         {
           id: 'sample-page',
