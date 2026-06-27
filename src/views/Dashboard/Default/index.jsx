@@ -2,7 +2,7 @@ import React from 'react';
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
-import { Grid, Card, CardHeader, CardContent, Typography, Divider, LinearProgress } from '@mui/material';
+import { Grid, Card, CardHeader, CardContent, Typography, Divider, LinearProgress, Box } from '@mui/material';
 
 //project import
 import SalesLineCard from 'views/Dashboard/card/SalesLineCard';
@@ -12,6 +12,7 @@ import RevenuChartCardData from 'views/Dashboard/card/revenu-chart';
 import ReportCard from './ReportCard';
 
 import { gridSpacing } from 'config.js';
+import api from 'views/Utils/api';
 
 // assets
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
@@ -20,6 +21,14 @@ import MonetizationOnTwoTone from '@mui/icons-material/MonetizationOnTwoTone';
 import DescriptionTwoTone from '@mui/icons-material/DescriptionTwoTone';
 import ThumbUpAltTwoTone from '@mui/icons-material/ThumbUpAltTwoTone';
 import CalendarTodayTwoTone from '@mui/icons-material/CalendarTodayTwoTone';
+
+import PeopleAltTwoTone from '@mui/icons-material/PeopleAltTwoTone';
+import StorefrontTwoTone from '@mui/icons-material/StorefrontTwoTone';
+import ShoppingBagTwoTone from '@mui/icons-material/ShoppingBagTwoTone';
+import RateReviewTwoTone from '@mui/icons-material/RateReviewTwoTone';
+import CategoryTwoTone from '@mui/icons-material/CategoryTwoTone';
+import ContactMailTwoTone from '@mui/icons-material/ContactMailTwoTone';
+import VpnKeyTwoTone from '@mui/icons-material/VpnKeyTwoTone';
 
 // custom style
 const FlatCardBlock = styled((props) => <Grid item sm={6} xs={12} {...props} />)(({ theme }) => ({
@@ -38,53 +47,172 @@ const FlatCardBlock = styled((props) => <Grid item sm={6} xs={12} {...props} />)
 
 const Default = () => {
   const theme = useTheme();
+  const [stats, setStats] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    api.get('/api/user/dashboard-stats')
+      .then(response => {
+        if (response.data && response.data.success) {
+          setStats(response.data.data);
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Fetch dashboard stats error:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <Box sx={{ width: '100%', mt: 4 }}>
+        <LinearProgress />
+      </Box>
+    );
+  }
+
+  if (!stats) {
+    return (
+      <Box sx={{ width: '100%', mt: 4, textAlign: 'center' }}>
+        <Typography variant="h4" color="error">
+          Failed to load dashboard data.
+        </Typography>
+      </Box>
+    );
+  }
+
+  const { userType } = stats;
+  const isSeller = userType === 'seller';
+
+  const totalOrders = stats.totalOrders || 0;
+  const getPercentage = (count) => {
+    if (totalOrders === 0) return 0;
+    return Math.round((count / totalOrders) * 100);
+  };
 
   return (
     <Grid container spacing={gridSpacing}>
       <Grid item xs={12}>
         <Grid container spacing={gridSpacing}>
+          {/* Earnings card (Admin only) */}
+          {!isSeller && (
+            <Grid item lg={3} sm={6} xs={12}>
+              <ReportCard
+                primary={`$${stats.totalEarnings || 0}`}
+                secondary="All Earnings"
+                color={theme.palette.warning.main}
+                footerData="Total revenue generated"
+                iconPrimary={MonetizationOnTwoTone}
+                iconFooter={TrendingUpIcon}
+              />
+            </Grid>
+          )}
+
+          {/* Customers card */}
           <Grid item lg={3} sm={6} xs={12}>
             <ReportCard
-              primary="$30200"
-              secondary="All Earnings"
-              color={theme.palette.warning.main}
-              footerData="10% changes on profit"
-              iconPrimary={MonetizationOnTwoTone}
-              iconFooter={TrendingUpIcon}
-            />
-          </Grid>
-          <Grid item lg={3} sm={6} xs={12}>
-            <ReportCard
-              primary="145"
-              secondary="Task"
-              color={theme.palette.error.main}
-              footerData="28% task performance"
-              iconPrimary={CalendarTodayTwoTone}
-              iconFooter={TrendingDownIcon}
-            />
-          </Grid>
-          <Grid item lg={3} sm={6} xs={12}>
-            <ReportCard
-              primary="290+"
-              secondary="Page Views"
-              color={theme.palette.success.main}
-              footerData="10k daily views"
-              iconPrimary={DescriptionTwoTone}
-              iconFooter={TrendingUpIcon}
-            />
-          </Grid>
-          <Grid item lg={3} sm={6} xs={12}>
-            <ReportCard
-              primary="500"
-              secondary="Downloads"
+              primary={`${stats.totalCustomers || 0}`}
+              secondary="Total Customers"
               color={theme.palette.primary.main}
-              footerData="1k download in App store"
-              iconPrimary={ThumbUpAltTwoTone}
+              footerData="Registered customers"
+              iconPrimary={PeopleAltTwoTone}
               iconFooter={TrendingUpIcon}
             />
           </Grid>
+
+          {/* Sellers card */}
+          <Grid item lg={3} sm={6} xs={12}>
+            <ReportCard
+              primary={`${stats.totalSellers || 0}`}
+              secondary="Total Sellers"
+              color={theme.palette.success.main}
+              footerData="Registered sellers"
+              iconPrimary={StorefrontTwoTone}
+              iconFooter={TrendingUpIcon}
+            />
+          </Grid>
+
+          {/* Orders card */}
+          <Grid item lg={3} sm={6} xs={12}>
+            <ReportCard
+              primary={`${stats.totalOrders || 0}`}
+              secondary="Total Orders"
+              color={theme.palette.primary.dark}
+              footerData="Orders placed"
+              iconPrimary={ShoppingBagTwoTone}
+              iconFooter={TrendingUpIcon}
+            />
+          </Grid>
+
+          {/* Products card */}
+          <Grid item lg={3} sm={6} xs={12}>
+            <ReportCard
+              primary={`${stats.totalProducts || 0}`}
+              secondary="Total Products"
+              color={theme.palette.secondary.main}
+              footerData="Active products in catalog"
+              iconPrimary={StorefrontTwoTone}
+              iconFooter={TrendingUpIcon}
+            />
+          </Grid>
+
+          {/* Categories card (Admin only) */}
+          {!isSeller && (
+            <Grid item lg={3} sm={6} xs={12}>
+              <ReportCard
+                primary={`${stats.totalCategories || 0}`}
+                secondary="Total Categories"
+                color={theme.palette.error.main}
+                footerData="Product categories"
+                iconPrimary={CategoryTwoTone}
+                iconFooter={TrendingUpIcon}
+              />
+            </Grid>
+          )}
+
+          {/* Reviews card */}
+          <Grid item lg={3} sm={6} xs={12}>
+            <ReportCard
+              primary={`${stats.totalReviews || 0}`}
+              secondary="Total Reviews"
+              color={theme.palette.warning.dark}
+              footerData="Customer reviews"
+              iconPrimary={RateReviewTwoTone}
+              iconFooter={TrendingUpIcon}
+            />
+          </Grid>
+
+          {/* Contacts card (Admin only) */}
+          {!isSeller && (
+            <Grid item lg={3} sm={6} xs={12}>
+              <ReportCard
+                primary={`${stats.totalContacts || 0}`}
+                secondary="Total Contacts"
+                color={theme.palette.secondary.dark}
+                footerData="Contact submissions"
+                iconPrimary={ContactMailTwoTone}
+                iconFooter={TrendingUpIcon}
+              />
+            </Grid>
+          )}
+
+          {/* Active Logins card (Admin only) */}
+          {!isSeller && (
+            <Grid item lg={3} sm={6} xs={12}>
+              <ReportCard
+                primary={`${stats.totalActiveLogins || 0}`}
+                secondary="Active Logins"
+                color={theme.palette.success.dark}
+                footerData="Currently logged in sessions"
+                iconPrimary={VpnKeyTwoTone}
+                iconFooter={TrendingUpIcon}
+              />
+            </Grid>
+          )}
         </Grid>
       </Grid>
+
       <Grid item xs={12}>
         <Grid container spacing={gridSpacing}>
           <Grid item lg={8} xs={12}>
@@ -99,51 +227,15 @@ const Default = () => {
                       icon={<TrendingDownIcon />}
                       footerData={[
                         {
-                          value: '$4230',
-                          label: 'Total Revenue'
+                          value: !isSeller ? `$${stats.totalEarnings || 0}` : `${stats.totalOrders || 0}`,
+                          label: !isSeller ? 'Total Revenue' : 'Total Orders'
                         },
                         {
-                          value: '321',
-                          label: 'Today Sales'
+                          value: `${stats.totalProducts || 0}`,
+                          label: 'Total Products'
                         }
                       ]}
                     />
-                  </Grid>
-                  <Grid item xs={12} sx={{ display: { md: 'block', sm: 'none' } }}>
-                    <Card>
-                      <CardContent sx={{ p: '0 !important' }}>
-                        <Grid container alignItems="center" spacing={0}>
-                          <FlatCardBlock>
-                            <Grid container alignItems="center" spacing={1}>
-                              <Grid item>
-                                <Typography variant="subtitle2" align="left">
-                                  REALTY
-                                </Typography>
-                              </Grid>
-                              <Grid item sm zeroMinWidth>
-                                <Typography variant="h5" sx={{ color: theme.palette.error.main }} align="right">
-                                  -0.99
-                                </Typography>
-                              </Grid>
-                            </Grid>
-                          </FlatCardBlock>
-                          <FlatCardBlock>
-                            <Grid container alignItems="center" spacing={1}>
-                              <Grid item>
-                                <Typography variant="subtitle2" align="left">
-                                  INFRA
-                                </Typography>
-                              </Grid>
-                              <Grid item sm zeroMinWidth>
-                                <Typography variant="h5" sx={{ color: theme.palette.success.main }} align="right">
-                                  -7.66
-                                </Typography>
-                              </Grid>
-                            </Grid>
-                          </FlatCardBlock>
-                        </Grid>
-                      </CardContent>
-                    </Card>
                   </Grid>
                 </Grid>
               </Grid>
@@ -152,93 +244,48 @@ const Default = () => {
               </Grid>
             </Grid>
           </Grid>
+
           <Grid item lg={4} xs={12}>
             <Card>
               <CardHeader
                 title={
                   <Typography component="div" className="card-header">
-                    Traffic Sources
+                    Orders by Status
                   </Typography>
                 }
               />
               <Divider />
               <CardContent>
                 <Grid container spacing={gridSpacing}>
-                  <Grid item xs={12}>
-                    <Grid container alignItems="center" spacing={1}>
-                      <Grid item sm zeroMinWidth>
-                        <Typography variant="body2">Direct</Typography>
+                  {[
+                    { label: 'Pending', key: 'pending', color: 'primary' },
+                    { label: 'Processing', key: 'processing', color: 'secondary' },
+                    { label: 'Shipped', key: 'shipped', color: 'primary' },
+                    { label: 'Delivered', key: 'delivered', color: 'success' },
+                    { label: 'Cancelled by Customer', key: 'cancelled by customer', color: 'error' },
+                    { label: 'Cancelled by Seller', key: 'cancelled by seller', color: 'error' },
+                    { label: 'Cancelled by Admin', key: 'cancelled by admin', color: 'error' }
+                  ].map((statusItem) => {
+                    const count = stats.statusCounts?.[statusItem.key] || 0;
+                    const pct = getPercentage(count);
+                    return (
+                      <Grid item xs={12} key={statusItem.key}>
+                        <Grid container alignItems="center" spacing={1}>
+                          <Grid item sm zeroMinWidth>
+                            <Typography variant="body2">{statusItem.label} ({count})</Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography variant="body2" align="right">
+                              {pct}%
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={12}>
+                            <LinearProgress variant="determinate" aria-label={statusItem.label} value={pct} color={statusItem.color} />
+                          </Grid>
+                        </Grid>
                       </Grid>
-                      <Grid item>
-                        <Typography variant="body2" align="right">
-                          80%
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <LinearProgress variant="determinate" aria-label="direct" value={80} color="primary" />
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Grid container alignItems="center" spacing={1}>
-                      <Grid item sm zeroMinWidth>
-                        <Typography variant="body2">Social</Typography>
-                      </Grid>
-                      <Grid item>
-                        <Typography variant="body2" align="right">
-                          50%
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <LinearProgress variant="determinate" aria-label="Social" value={50} color="secondary" />
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Grid container alignItems="center" spacing={1}>
-                      <Grid item sm zeroMinWidth>
-                        <Typography variant="body2">Referral</Typography>
-                      </Grid>
-                      <Grid item>
-                        <Typography variant="body2" align="right">
-                          20%
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <LinearProgress variant="determinate" aria-label="Referral" value={20} color="primary" />
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Grid container alignItems="center" spacing={1}>
-                      <Grid item sm zeroMinWidth>
-                        <Typography variant="body2">Bounce</Typography>
-                      </Grid>
-                      <Grid item>
-                        <Typography variant="body2" align="right">
-                          60%
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <LinearProgress variant="determinate" aria-label="Bounce" value={60} color="secondary" />
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Grid container alignItems="center" spacing={1}>
-                      <Grid item sm zeroMinWidth>
-                        <Typography variant="body2">Internet</Typography>
-                      </Grid>
-                      <Grid item>
-                        <Typography variant="body2" align="right">
-                          40%
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <LinearProgress variant="determinate" aria-label="Internet" value={40} color="primary" />
-                      </Grid>
-                    </Grid>
-                  </Grid>
+                    );
+                  })}
                 </Grid>
               </CardContent>
             </Card>
