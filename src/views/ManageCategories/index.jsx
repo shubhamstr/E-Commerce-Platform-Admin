@@ -104,6 +104,19 @@ const ManageCategories = () => {
     }
   };
 
+  const imageTemplate = (rowData) => {
+    if (rowData.imageUrl) {
+      return (
+        <img
+          src={`${import.meta.env.VITE_APP_SERVER_URL || 'http://localhost:5000'}${rowData.imageUrl}`}
+          alt={rowData.name}
+          style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }}
+        />
+      );
+    }
+    return <span>No Image</span>;
+  };
+
   const actionBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
@@ -168,6 +181,7 @@ const ManageCategories = () => {
               rowsPerPageOptions={[5, 10, 25, 50]}
               tableStyle={{ minWidth: '50rem' }}
             >
+              <Column header="Image" body={imageTemplate} style={{ width: '100px' }}></Column>
               <Column field="name" header="Name" sortable filter></Column>
               <Column field="description" header="Description" sortable filter></Column>
               <Column field="createdAt" header="Created At" sortable body={dateTemplate} style={{ minWidth: '13rem' }} filter></Column>

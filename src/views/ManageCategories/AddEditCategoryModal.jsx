@@ -7,12 +7,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Grid from '@mui/material/Grid';
 import CircularProgress from '@mui/material/CircularProgress';
-import { addCategory, getCategory, updateCategory } from '../../services/categoryService';
+import { addCategory, getCategory, updateCategory, uploadCategoryImage } from '../../services/categoryService';
 import { showSuccess, showError } from '../Utils/toast';
 
 const AddEditCategoryModal = ({ handleClose, categoryId, open, onSuccess }) => {
-  const [formDetails, setFormDetails] = useState({ name: '', description: '' });
+  const [formDetails, setFormDetails] = useState({ name: '', description: '', imageUrl: '' });
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     const fetchCategoryDetails = async () => {
@@ -23,7 +24,8 @@ const AddEditCategoryModal = ({ handleClose, categoryId, open, onSuccess }) => {
         if (success) {
           setFormDetails({
             name: data?.name || '',
-            description: data?.description || ''
+            description: data?.description || '',
+            imageUrl: data?.imageUrl || ''
           });
         } else {
           showError(message || 'Failed to fetch category details');
@@ -41,7 +43,8 @@ const AddEditCategoryModal = ({ handleClose, categoryId, open, onSuccess }) => {
     } else {
       setFormDetails({
         name: '',
-        description: ''
+        description: '',
+        imageUrl: ''
       });
     }
   }, [open, categoryId]);
@@ -51,6 +54,34 @@ const AddEditCategoryModal = ({ handleClose, categoryId, open, onSuccess }) => {
       ...prev,
       [e.target.name]: e.target.value
     }));
+  };
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    setUploading(true);
+    try {
+      const res = await uploadCategoryImage(formData);
+      const { success, imageUrl, message } = res.data;
+      if (success) {
+        setFormDetails((prev) => ({
+          ...prev,
+          imageUrl: imageUrl
+        }));
+        showSuccess('Image uploaded successfully');
+      } else {
+        showError(message || 'Failed to upload image');
+      }
+    } catch (error) {
+      console.error(error);
+      showError('Error uploading image');
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -129,6 +160,29 @@ const AddEditCategoryModal = ({ handleClose, categoryId, open, onSuccess }) => {
                   variant="standard"
                   onChange={onChange}
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <input
+                  accept="image/*"
+                  style={{ display: 'none' }}
+                  id="category-image-upload"
+                  type="file"
+                  onChange={handleFileChange}
+                />
+                <label htmlFor="category-image-upload">
+                  <Button variant="outlined" component="span" disabled={uploading}>
+                    {uploading ? 'Uploading...' : 'Upload Category Image'}
+                  </Button>
+                </label>
+                {formDetails?.imageUrl && (
+                  <div style={{ marginTop: '10px' }}>
+                    <img
+                      src={`${import.meta.env.VITE_APP_SERVER_URL || 'http://localhost:5000'}${formDetails.imageUrl}`}
+                      alt="Category Preview"
+                      style={{ maxWidth: '100%', maxHeight: '150px', objectFit: 'contain', borderRadius: '4px' }}
+                    />
+                  </div>
+                )}
               </Grid>
             </Grid>
           )}
