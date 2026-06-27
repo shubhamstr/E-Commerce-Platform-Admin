@@ -194,6 +194,8 @@ const ManageProducts = () => {
               <Column header="Category" body={categoryTemplate}></Column>
               <Column field="price" header="Price" sortable body={priceTemplate}></Column>
               <Column field="stock" header="Stock" sortable></Column>
+              <Column field="sizes" header="Sizes"></Column>
+              <Column field="colors" header="Colors"></Column>
               <Column field="createdAt" header="Created At" sortable body={dateTemplate} style={{ minWidth: '13rem' }}></Column>
               <Column header="Actions" body={actionBodyTemplate} style={{ minWidth: '12rem' }}></Column>
             </DataTable>

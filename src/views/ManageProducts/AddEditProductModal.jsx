@@ -18,7 +18,9 @@ const AddEditProductModal = ({ handleClose, productId, open, onSuccess }) => {
     price: '',
     stock: '',
     imageUrl: '',
-    categoryId: ''
+    categoryId: '',
+    sizes: '',
+    colors: ''
   });
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -55,7 +57,9 @@ const AddEditProductModal = ({ handleClose, productId, open, onSuccess }) => {
             price: data?.price !== undefined && data?.price !== null ? String(data.price) : '',
             stock: data?.stock !== undefined && data?.stock !== null ? String(data.stock) : '',
             imageUrl: data?.imageUrl || '',
-            categoryId: data?.categoryId || ''
+            categoryId: data?.categoryId || '',
+            sizes: data?.sizes || '',
+            colors: data?.colors || ''
           });
         } else {
           showError(message || 'Failed to fetch product details');
@@ -77,7 +81,9 @@ const AddEditProductModal = ({ handleClose, productId, open, onSuccess }) => {
         price: '',
         stock: '',
         imageUrl: '',
-        categoryId: ''
+        categoryId: '',
+        sizes: '',
+        colors: ''
       });
     }
   }, [open, productId]);
@@ -125,7 +131,9 @@ const AddEditProductModal = ({ handleClose, productId, open, onSuccess }) => {
       ...formDetails,
       price: parseFloat(formDetails.price),
       stock: parseInt(formDetails.stock, 10),
-      categoryId: formDetails.categoryId ? parseInt(formDetails.categoryId, 10) : null
+      categoryId: formDetails.categoryId ? parseInt(formDetails.categoryId, 10) : null,
+      sizes: formDetails.sizes || null,
+      colors: formDetails.colors || null
     };
 
     try {
@@ -248,6 +256,30 @@ const AddEditProductModal = ({ handleClose, productId, open, onSuccess }) => {
                   fullWidth
                   multiline
                   rows={3}
+                  variant="standard"
+                  onChange={onChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  margin="dense"
+                  name="sizes"
+                  label="Sizes (comma-separated, e.g. S,M,L)"
+                  value={formDetails?.sizes || ''}
+                  type="text"
+                  fullWidth
+                  variant="standard"
+                  onChange={onChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  margin="dense"
+                  name="colors"
+                  label="Colors (comma-separated, e.g. Red,Blue)"
+                  value={formDetails?.colors || ''}
+                  type="text"
+                  fullWidth
                   variant="standard"
                   onChange={onChange}
                 />
