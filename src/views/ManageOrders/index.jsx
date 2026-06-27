@@ -142,7 +142,10 @@ const ManageOrders = () => {
       processing: 'info',
       shipped: 'primary',
       delivered: 'success',
-      cancelled: 'error'
+      cancelled: 'error',
+      'cancelled by customer': 'error',
+      'cancelled by seller': 'error',
+      'cancelled by admin': 'error'
     };
 
     return (
@@ -175,6 +178,21 @@ const ManageOrders = () => {
           <MenuItem value="cancelled">
             <Chip label="Cancelled" color="error" size="small" style={{ width: '100%' }} />
           </MenuItem>
+          {rowData.status === 'cancelled by customer' && (
+            <MenuItem value="cancelled by customer">
+              <Chip label="Cancelled by Customer" color="error" size="small" style={{ width: '100%' }} />
+            </MenuItem>
+          )}
+          {rowData.status === 'cancelled by seller' && (
+            <MenuItem value="cancelled by seller">
+              <Chip label="Cancelled by Seller" color="error" size="small" style={{ width: '100%' }} />
+            </MenuItem>
+          )}
+          {rowData.status === 'cancelled by admin' && (
+            <MenuItem value="cancelled by admin">
+              <Chip label="Cancelled by Admin" color="error" size="small" style={{ width: '100%' }} />
+            </MenuItem>
+          )}
         </Select>
       </FormControl>
     );
