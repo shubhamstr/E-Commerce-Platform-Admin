@@ -15,13 +15,16 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { registerUser, getUser, updateUser } from '../../services/authService';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { registerUser, getUser, updateUser, updatePassword } from '../../services/authService';
 import { showSuccess, showError } from '../Utils/toast';
 
 const AddEditUserModal = ({ handleClose, userId, open, onSuccess }) => {
   const [formDetails, setFormDetails] = useState({});
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [changePassword, setChangePassword] = useState(false);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -30,7 +33,10 @@ const AddEditUserModal = ({ handleClose, userId, open, onSuccess }) => {
         const res = await getUser(userId);
         const { success, data, message } = res.data;
         if (success) {
-          setFormDetails(data || {});
+          setFormDetails({
+            ...(data || {}),
+            password: ''
+          });
         } else {
           showError(message || 'Failed to fetch user details');
         }
@@ -43,8 +49,10 @@ const AddEditUserModal = ({ handleClose, userId, open, onSuccess }) => {
     };
 
     if (open && userId) {
+      setChangePassword(false);
       fetchUserDetails();
     } else {
+      setChangePassword(false);
       setFormDetails({
         firstName: '',
         lastName: '',
@@ -69,7 +77,11 @@ const AddEditUserModal = ({ handleClose, userId, open, onSuccess }) => {
     try {
       let res;
       if (userId) {
-        res = await updateUser(userId, formDetails);
+        const { password, ...userDetailsToUpdate } = formDetails;
+        res = await updateUser(userId, userDetailsToUpdate);
+        if (changePassword && password) {
+          await updatePassword(userId, { password });
+        }
       } else {
         res = await registerUser(formDetails);
       }
@@ -160,13 +172,33 @@ const AddEditUserModal = ({ handleClose, userId, open, onSuccess }) => {
                   onChange={onChange}
                 />
               </Grid>
-              {!userId && (
+              {userId && (
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={changePassword}
+                        onChange={(e) => {
+                          setChangePassword(e.target.checked);
+                          if (!e.target.checked) {
+                            setFormDetails((prev) => ({ ...prev, password: '' }));
+                          }
+                        }}
+                        name="changePassword"
+                        color="primary"
+                      />
+                    }
+                    label="Update Password"
+                  />
+                </Grid>
+              )}
+              {(!userId || changePassword) && (
                 <Grid item xs={6}>
                   <TextField
-                    required
+                    required={!userId || changePassword}
                     margin="dense"
                     name="password"
-                    label="Password"
+                    label={userId ? 'New Password' : 'Password'}
                     type={showPassword ? 'text' : 'password'}
                     value={formDetails?.password || ''}
                     fullWidth
