@@ -10,8 +10,7 @@ const ProtectedRoute = ({ children }) => {
     if (!auth.isAuthenticated) {
       navigate('/login');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [auth.isAuthenticated, navigate]);
 
   return auth.isAuthenticated ? children : null;
 };

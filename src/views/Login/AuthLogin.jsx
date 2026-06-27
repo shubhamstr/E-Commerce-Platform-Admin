@@ -53,26 +53,34 @@ const AuthLogin = ({ ...rest }) => {
   };
 
   const checkUser = async (decoded, token) => {
-    const res = await userExists(decoded.userId, {
-      token
-    });
-    const { success, message, data, error } = res.data;
-    if (success) {
-      dispatch(login());
-      const { id, firstName, lastName, email, userType } = data;
-      dispatch(
-        setUser({
-          userId: id,
-          email: email,
-          firstName: firstName,
-          lastName: lastName,
-          userType: userType
-        })
-      );
-      navigate('/');
-    } else {
-      // dispatch(logout({}));
-      // navigate('/login');
+    try {
+      const res = await userExists(decoded.userId, {
+        token
+      });
+      const { success, message, data, error } = res.data;
+      if (success) {
+        dispatch(login());
+        const { id, firstName, lastName, email, userType } = data;
+        dispatch(
+          setUser({
+            userId: id,
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            userType: userType
+          })
+        );
+        navigate('/');
+      } else {
+        localStorage.removeItem('ecomAdminToken');
+        dispatch(logout({}));
+        navigate('/login');
+      }
+    } catch (err) {
+      console.error(err);
+      localStorage.removeItem('ecomAdminToken');
+      dispatch(logout({}));
+      navigate('/login');
     }
   };
 

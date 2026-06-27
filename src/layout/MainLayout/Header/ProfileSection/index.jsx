@@ -128,6 +128,7 @@ const ProfileSection = () => {
                   <ListItemButton
                     selected={selectedIndex === 4}
                     onClick={() => {
+                      localStorage.removeItem('ecomAdminToken');
                       dispatch(logout({}));
                       navigate('/login');
                     }}

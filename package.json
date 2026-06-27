@@ -2,6 +2,11 @@
   "name": "materially-free-react-admin-template",
   "version": "3.0.0",
   "private": true,
+  "author": "shubhamdev <shubhamsutar5799@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shubhamstr/E-Commerce-Platform-Admin.git"
+  },
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",

@@ -24,7 +24,14 @@ const authReducer = (state = initialState, action) => {
     case actionTypes.LOGOUT:
       return {
         ...state,
-        isAuthenticated: false
+        isAuthenticated: false,
+        userData: {
+          userId: '',
+          email: '',
+          firstName: '',
+          lastName: '',
+          userType: ''
+        }
       };
     case actionTypes.SET_USER:
       return {

@@ -18,14 +18,7 @@ const NavCard = () => {
               Checkout Materially Premium Features
             </Typography>
           </Stack>
-          <Button
-            component={Link}
-            target="_blank"
-            href="#"
-            variant="contained"
-            color="primary"
-            size="small"
-          >
+          <Button component={Link} target="_blank" href="#" variant="contained" color="primary" size="small">
             Download Premium
           </Button>
         </Stack>
