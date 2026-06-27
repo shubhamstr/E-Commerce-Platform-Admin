@@ -134,6 +134,14 @@ const ManageCategories = () => {
     return moment(rowData.createdAt).format('DD MMM YYYY hh:mm a');
   };
 
+  const featuredTemplate = (rowData) => {
+    return rowData.isFeatured ? (
+      <span style={{ color: 'green', fontWeight: 'bold' }}>Yes</span>
+    ) : (
+      <span>No</span>
+    );
+  };
+
   const AddAction = () => {
     return (
       <Button variant="contained" onClick={handleClickOpen}>
@@ -184,6 +192,7 @@ const ManageCategories = () => {
               <Column header="Image" body={imageTemplate} style={{ width: '100px' }}></Column>
               <Column field="name" header="Name" sortable filter></Column>
               <Column field="description" header="Description" sortable filter></Column>
+              <Column field="isFeatured" header="Featured" body={featuredTemplate} sortable></Column>
               <Column field="createdAt" header="Created At" sortable body={dateTemplate} style={{ minWidth: '13rem' }} filter></Column>
               <Column header="Actions" body={actionBodyTemplate} style={{ minWidth: '12rem' }}></Column>
             </DataTable>

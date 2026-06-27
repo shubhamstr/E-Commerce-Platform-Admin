@@ -7,11 +7,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Grid from '@mui/material/Grid';
 import CircularProgress from '@mui/material/CircularProgress';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import { addCategory, getCategory, updateCategory, uploadCategoryImage } from '../../services/categoryService';
 import { showSuccess, showError } from '../Utils/toast';
 
 const AddEditCategoryModal = ({ handleClose, categoryId, open, onSuccess }) => {
-  const [formDetails, setFormDetails] = useState({ name: '', description: '', imageUrl: '' });
+  const [formDetails, setFormDetails] = useState({ name: '', description: '', imageUrl: '', isFeatured: false });
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
 
@@ -25,7 +27,8 @@ const AddEditCategoryModal = ({ handleClose, categoryId, open, onSuccess }) => {
           setFormDetails({
             name: data?.name || '',
             description: data?.description || '',
-            imageUrl: data?.imageUrl || ''
+            imageUrl: data?.imageUrl || '',
+            isFeatured: data?.isFeatured || false
           });
         } else {
           showError(message || 'Failed to fetch category details');
@@ -44,15 +47,17 @@ const AddEditCategoryModal = ({ handleClose, categoryId, open, onSuccess }) => {
       setFormDetails({
         name: '',
         description: '',
-        imageUrl: ''
+        imageUrl: '',
+        isFeatured: false
       });
     }
   }, [open, categoryId]);
 
   const onChange = (e) => {
+    const { name, value, type, checked } = e.target;
     setFormDetails((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [name]: type === 'checkbox' || name === 'isFeatured' ? checked : value
     }));
   };
 
@@ -159,6 +164,19 @@ const AddEditCategoryModal = ({ handleClose, categoryId, open, onSuccess }) => {
                   rows={3}
                   variant="standard"
                   onChange={onChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={formDetails?.isFeatured || false}
+                      onChange={onChange}
+                      name="isFeatured"
+                      color="primary"
+                    />
+                  }
+                  label="Featured Category"
                 />
               </Grid>
               <Grid item xs={12}>
