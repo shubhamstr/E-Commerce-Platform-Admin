@@ -47,10 +47,16 @@ const ManageUsers = () => {
   const [userId, setUserId] = useState(null);
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
+    setUserId(null);
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const editUser = (user) => {
+    setUserId(user.id);
+    setOpen(true);
   };
 
   const getUsers = async () => {
@@ -78,16 +84,20 @@ const ManageUsers = () => {
     }
   };
 
+  const confirmDeleteProduct = (rowData) => {
+    console.log('Delete requested for user:', rowData);
+    showError('Delete functionality is not implemented yet.');
+  };
+
   const actionBodyTemplate = (rowData) => {
     let isDisabled = false;
     // console.log(rowData, auth);
     if (auth.userData.userId === rowData.id) {
       isDisabled = true;
     }
-    setUserId(rowData.id);
     return (
       <React.Fragment>
-        <Button variant="contained" disabled={isDisabled} className={styles.rightMargin} onClick={() => editProduct(rowData)}>
+        <Button variant="contained" disabled={isDisabled} className={styles.rightMargin} onClick={() => editUser(rowData)}>
           <EditIcon />
         </Button>
         <Button variant="contained" disabled={isDisabled} color="error" className="mr-2" onClick={() => confirmDeleteProduct(rowData)}>
@@ -159,14 +169,14 @@ const ManageUsers = () => {
               {/* <Column field="mobileNumber" header="Mobile Number" sortable filter></Column> */}
               <Column field="email" header="Email" sortable filter></Column>
               <Column field="userType" header="User Type" sortable filter></Column>
-              <Column field="isLogin" header="Is Login" body={loginTemplate} filter></Column>
+              <Column field="isLogin" header="Is Logged In" body={loginTemplate} filter></Column>
               <Column field="createdAt" header="Created At" sortable body={dateTemplate} style={{ minWidth: '13rem' }} filter></Column>
               <Column header="Actions" body={actionBodyTemplate} style={{ minWidth: '12rem' }}></Column>
             </DataTable>
           </Card>
         </Grid>
       </Grid>
-      <AddEditUserModal handleClose={handleClose} userId={userId} open={open} />
+      <AddEditUserModal handleClose={handleClose} userId={userId} open={open} onSuccess={getUsers} />
     </>
   );
 };

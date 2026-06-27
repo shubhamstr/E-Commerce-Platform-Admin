@@ -2,13 +2,13 @@
 import api from '../views/Utils/api';
 
 // users
-// export const registerUser = (data) => api.post('/api/user/register', data);
+export const registerUser = (data) => api.post('/api/user/register', data);
 export const loginUser = (data) => api.post('/api/user/login', data);
 export const userExists = (id, data) => api.post(`/api/user/exists/${id}`, data);
 export const getAllUsers = (options) => api.get(`/api/user/get`, options);
-// export const getUser = (id) => api.get(`/api/user/get/${id}`)
-// export const updateUser = (id, data) => api.post(`/api/user/update/${id}`, data)
-// export const updatePassword = (id, data) => api.post(`/api/user/update-password/${id}`, data)
+export const getUser = (id) => api.get(`/api/user/get/${id}`);
+export const updateUser = (id, data) => api.post(`/api/user/update/${id}`, data);
+export const updatePassword = (id, data) => api.post(`/api/user/update-password/${id}`, data);
 
 // // addresses
 // export const getUserAddresses = (id) => api.get(`/api/address/get/user/${id}`)
