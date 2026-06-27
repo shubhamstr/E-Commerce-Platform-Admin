@@ -11,11 +11,13 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import PeopleIcon from '@mui/icons-material/People';
 import CategoryIcon from '@mui/icons-material/Category';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
 
 const icons = {
   PeopleIcon: PeopleIcon,
   CategoryIcon: CategoryIcon,
   ShoppingBagIcon: ShoppingBagIcon,
+  ContactMailIcon: ContactMailIcon,
   NavigationOutlinedIcon: NavigationOutlinedIcon,
   HomeOutlinedIcon: HomeOutlinedIcon,
   ChromeReaderModeOutlinedIcon: ChromeReaderModeOutlinedIcon,
@@ -75,6 +77,13 @@ export default {
           type: 'item',
           url: '/manage-products',
           icon: icons['ShoppingBagIcon']
+        },
+        {
+          id: 'manage-contacts',
+          title: 'Manage Contacts',
+          type: 'item',
+          url: '/manage-contacts',
+          icon: icons['ContactMailIcon']
         },
         {
           id: 'sample-page',
