@@ -23,7 +23,8 @@ import {
   ListItem,
   ListItemText,
   Divider,
-  Box
+  Box,
+  Rating
 } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
@@ -265,14 +266,37 @@ const ManageOrders = () => {
                 {selectedOrder.items && selectedOrder.items.length > 0 ? (
                   selectedOrder.items.map((item, index) => (
                     <React.Fragment key={item.id || index}>
-                      <ListItem sx={{ py: 1.5, px: 0 }}>
-                        <ListItemText
-                          primary={item.product?.name || 'Unknown Product'}
-                          secondary={`Quantity: ${item.quantity} | Unit Price: $${parseFloat(item.price).toFixed(2)}`}
-                        />
-                        <Typography variant="body2" sx={{ fontWeight: 700 }}>
-                          ${(parseFloat(item.price) * item.quantity).toFixed(2)}
-                        </Typography>
+                      <ListItem sx={{ py: 1.5, px: 0, flexDirection: 'column', alignItems: 'flex-start' }}>
+                        <Box display="flex" width="100%" justifyContent="space-between" alignItems="center">
+                          <ListItemText
+                            primary={item.product?.name || 'Unknown Product'}
+                            secondary={`Quantity: ${item.quantity} | Unit Price: $${parseFloat(item.price).toFixed(2)}`}
+                          />
+                          <Typography variant="body2" sx={{ fontWeight: 700 }}>
+                            ${(parseFloat(item.price) * item.quantity).toFixed(2)}
+                          </Typography>
+                        </Box>
+                        {(() => {
+                          const itemReview = selectedOrder.reviews?.find((r) => r.productId === item.productId);
+                          if (itemReview) {
+                            return (
+                              <Box sx={{ mt: 1, p: 1, bgcolor: 'action.hover', borderRadius: 1, width: '100%' }}>
+                                <Box display="flex" alignItems="center" gap={1}>
+                                  <Rating value={itemReview.rating} readOnly size="small" />
+                                  <Typography variant="caption" color="textSecondary" style={{ fontWeight: 'bold' }}>
+                                    Product Review
+                                  </Typography>
+                                </Box>
+                                {itemReview.comment && (
+                                  <Typography variant="body2" sx={{ mt: 0.5, fontStyle: 'italic' }}>
+                                    "{itemReview.comment}"
+                                  </Typography>
+                                )}
+                              </Box>
+                            );
+                          }
+                          return null;
+                        })()}
                       </ListItem>
                       <Divider />
                     </React.Fragment>
@@ -282,6 +306,29 @@ const ManageOrders = () => {
                     No items in this order.
                   </Typography>
                 )}
+                
+                {(() => {
+                  const orderReview = selectedOrder.reviews?.find((r) => r.productId === null);
+                  if (orderReview) {
+                    return (
+                      <Box sx={{ my: 2, p: 1.5, bgcolor: '#f0f4f8', borderLeft: '4px solid #1e88e5', borderRadius: '0 4px 4px 0', width: '100%' }}>
+                        <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 0.5, color: '#1e88e5' }}>
+                          Customer Order Feedback
+                        </Typography>
+                        <Box display="flex" alignItems="center" gap={1}>
+                          <Rating value={orderReview.rating} readOnly size="small" />
+                        </Box>
+                        {orderReview.comment && (
+                          <Typography variant="body2" sx={{ mt: 0.5, fontStyle: 'italic', color: 'text.secondary' }}>
+                            "{orderReview.comment}"
+                          </Typography>
+                        )}
+                      </Box>
+                    );
+                  }
+                  return null;
+                })()}
+
                 <ListItem sx={{ py: 1.5, px: 0 }}>
                   <ListItemText primary="Total" primaryTypographyProps={{ variant: 'h5' }} />
                   <Typography variant="h5" color="secondary">
