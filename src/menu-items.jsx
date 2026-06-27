@@ -12,12 +12,14 @@ import PeopleIcon from '@mui/icons-material/People';
 import CategoryIcon from '@mui/icons-material/Category';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 
 const icons = {
   PeopleIcon: PeopleIcon,
   CategoryIcon: CategoryIcon,
   ShoppingBagIcon: ShoppingBagIcon,
   ContactMailIcon: ContactMailIcon,
+  ReceiptIcon: ReceiptIcon,
   NavigationOutlinedIcon: NavigationOutlinedIcon,
   HomeOutlinedIcon: HomeOutlinedIcon,
   ChromeReaderModeOutlinedIcon: ChromeReaderModeOutlinedIcon,
@@ -88,6 +90,14 @@ export default {
           url: '/manage-contacts',
           icon: icons['ContactMailIcon'],
           allowedRoles: ['admin']
+        },
+        {
+          id: 'manage-orders',
+          title: 'Manage Orders',
+          type: 'item',
+          url: '/manage-orders',
+          icon: icons['ReceiptIcon'],
+          allowedRoles: ['admin', 'seller']
         },
         {
           id: 'sample-page',
