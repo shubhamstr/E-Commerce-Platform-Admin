@@ -34,4 +34,25 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Add response interceptor to handle 401/403 errors (expired/invalid tokens)
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (typeof window !== 'undefined' && error.response) {
+      const { status } = error.response;
+      if (status === 401 || status === 403) {
+        localStorage.removeItem('ecomAdminToken');
+        const portalType = localStorage.getItem('portalType');
+        localStorage.removeItem('portalType');
+        if (portalType === 'seller') {
+          window.location.href = '/ecom/seller-login';
+        } else {
+          window.location.href = '/ecom/login';
+        }
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default api;
