@@ -62,35 +62,40 @@ export default {
           title: 'Manage Users',
           type: 'item',
           url: '/manage-users',
-          icon: icons['PeopleIcon']
+          icon: icons['PeopleIcon'],
+          allowedRoles: ['admin']
         },
         {
           id: 'manage-categories',
           title: 'Manage Categories',
           type: 'item',
           url: '/manage-categories',
-          icon: icons['CategoryIcon']
+          icon: icons['CategoryIcon'],
+          allowedRoles: ['admin', 'seller']
         },
         {
           id: 'manage-products',
           title: 'Manage Products',
           type: 'item',
           url: '/manage-products',
-          icon: icons['ShoppingBagIcon']
+          icon: icons['ShoppingBagIcon'],
+          allowedRoles: ['admin', 'seller']
         },
         {
           id: 'manage-contacts',
           title: 'Manage Contacts',
           type: 'item',
           url: '/manage-contacts',
-          icon: icons['ContactMailIcon']
+          icon: icons['ContactMailIcon'],
+          allowedRoles: ['admin']
         },
         {
           id: 'sample-page',
           title: 'Sample Page',
           type: 'item',
           url: '/sample-page',
-          icon: icons['ChromeReaderModeOutlinedIcon']
+          icon: icons['ChromeReaderModeOutlinedIcon'],
+          allowedRoles: ['admin', 'seller']
         }
         // {
         //   id: 'auth',

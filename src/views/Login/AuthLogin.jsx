@@ -59,8 +59,15 @@ const AuthLogin = ({ ...rest }) => {
       });
       const { success, message, data, error } = res.data;
       if (success) {
-        dispatch(login());
         const { id, firstName, lastName, email, userType } = data;
+        if (userType !== 'admin' && userType !== 'seller') {
+          showError('Access Denied: Only Admins and Sellers can access the admin panel.');
+          localStorage.removeItem('ecomAdminToken');
+          dispatch(logout({}));
+          navigate('/login');
+          return;
+        }
+        dispatch(login());
         dispatch(
           setUser({
             userId: id,
@@ -154,12 +161,15 @@ const AuthLogin = ({ ...rest }) => {
           });
           const { success, message, data, error } = res.data;
           if (success) {
-            showSuccess(message);
-            // console.log(data);
-            if (data) {
+            if (data && data.userResp) {
+              const { id, firstName, lastName, email, userType } = data.userResp;
+              if (userType !== 'admin' && userType !== 'seller') {
+                showError('Access Denied: Only Admins and Sellers can access the admin panel.');
+                return;
+              }
+              showSuccess(message);
               localStorage.setItem('ecomAdminToken', data.token);
               dispatch(login());
-              const { id, firstName, lastName, email, userType } = data.userResp;
               dispatch(
                 setUser({
                   userId: id,
