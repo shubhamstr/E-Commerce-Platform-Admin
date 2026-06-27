@@ -10,6 +10,7 @@ const UtilsTypography = Loadable(lazy(() => import('views/Utils/Typography')));
 const SamplePage = Loadable(lazy(() => import('views/SamplePage')));
 const ManageUsers = Loadable(lazy(() => import('views/ManageUsers')));
 const ManageCategories = Loadable(lazy(() => import('views/ManageCategories')));
+const ManageProducts = Loadable(lazy(() => import('views/ManageProducts')));
 
 // ==============================|| MAIN ROUTES ||============================== //
 
@@ -32,7 +33,8 @@ const MainRoutes = {
     { path: '/utils/util-typography', element: <UtilsTypography /> },
     { path: '/sample-page', element: <SamplePage /> },
     { path: '/manage-users', element: <ManageUsers /> },
-    { path: '/manage-categories', element: <ManageCategories /> }
+    { path: '/manage-categories', element: <ManageCategories /> },
+    { path: '/manage-products', element: <ManageProducts /> }
   ]
 };
 

@@ -10,10 +10,12 @@ import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import PeopleIcon from '@mui/icons-material/People';
 import CategoryIcon from '@mui/icons-material/Category';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
 const icons = {
   PeopleIcon: PeopleIcon,
   CategoryIcon: CategoryIcon,
+  ShoppingBagIcon: ShoppingBagIcon,
   NavigationOutlinedIcon: NavigationOutlinedIcon,
   HomeOutlinedIcon: HomeOutlinedIcon,
   ChromeReaderModeOutlinedIcon: ChromeReaderModeOutlinedIcon,
@@ -66,6 +68,13 @@ export default {
           type: 'item',
           url: '/manage-categories',
           icon: icons['CategoryIcon']
+        },
+        {
+          id: 'manage-products',
+          title: 'Manage Products',
+          type: 'item',
+          url: '/manage-products',
+          icon: icons['ShoppingBagIcon']
         },
         {
           id: 'sample-page',
