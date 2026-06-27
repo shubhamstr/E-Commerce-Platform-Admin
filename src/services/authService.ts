@@ -9,6 +9,8 @@ export const getAllUsers = (options) => api.get(`/api/user/get`, options);
 export const getUser = (id) => api.get(`/api/user/get/${id}`);
 export const updateUser = (id, data) => api.post(`/api/user/update/${id}`, data);
 export const updatePassword = (id, data) => api.post(`/api/user/update-password/${id}`, data);
+export const deleteUser = (id) => api.delete(`/api/user/delete/${id}`);
+
 
 // // addresses
 // export const getUserAddresses = (id) => api.get(`/api/address/get/user/${id}`)

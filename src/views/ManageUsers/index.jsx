@@ -21,7 +21,7 @@ import { FilterMatchMode } from 'primereact/api';
 // project import
 import BreadcrumbButton from 'component/BreadcrumbButton';
 import { gridSpacing } from 'config.js';
-import { getAllUsers, updateUser } from '../../services/authService';
+import { getAllUsers, updateUser, deleteUser } from '../../services/authService';
 import { showSuccess, showError } from '../Utils/toast';
 import styles from './styles.module.css';
 import AddEditUserModal from './AddEditUserModal';
@@ -86,9 +86,22 @@ const ManageUsers = () => {
     }
   };
 
-  const confirmDeleteProduct = (rowData) => {
-    console.log('Delete requested for user:', rowData);
-    showError('Delete functionality is not implemented yet.');
+  const handleDeleteUser = async (rowData) => {
+    if (window.confirm(`Are you sure you want to delete user "${rowData.email}"?`)) {
+      try {
+        const res = await deleteUser(rowData.id);
+        const { success, message } = res.data;
+        if (success) {
+          showSuccess(message || 'User deleted successfully');
+          getUsers();
+        } else {
+          showError(message || 'Failed to delete user');
+        }
+      } catch (error) {
+        const errMsg = error.response?.data?.message || 'Delete failed';
+        showError(errMsg);
+      }
+    }
   };
 
   const toggleActiveStatus = async (rowData) => {
@@ -187,7 +200,7 @@ const ManageUsers = () => {
         <Button variant="contained" disabled={isDisabled} className={styles.rightMargin} onClick={() => editUser(rowData)}>
           <EditIcon />
         </Button>
-        <Button variant="contained" disabled={isDisabled} color="error" className="mr-2" onClick={() => confirmDeleteProduct(rowData)}>
+        <Button variant="contained" disabled={isDisabled} color="error" className="mr-2" onClick={() => handleDeleteUser(rowData)}>
           <DeleteIcon />
         </Button>
       </React.Fragment>
