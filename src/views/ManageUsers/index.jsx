@@ -96,7 +96,11 @@ const ManageUsers = () => {
       const res = await updateUser(rowData.id, { isActive: !rowData.isActive });
       const { success, message } = res.data;
       if (success) {
-        showSuccess(rowData.isActive ? 'User deactivated.' : 'Seller approved & activated!');
+        if (rowData.isActive) {
+          showSuccess(rowData.userType === 'seller' ? 'Seller deactivated.' : 'User deactivated.');
+        } else {
+          showSuccess(rowData.userType === 'seller' ? 'Seller approved & activated!' : 'User activated!');
+        }
         getUsers();
       } else {
         showError(message);
@@ -124,8 +128,22 @@ const ManageUsers = () => {
     }
     return (
       <React.Fragment>
-        {!rowData.isActive && (
+        {!rowData.isActive && rowData.userType === 'seller' && (
           <Tooltip title="Approve Seller" arrow>
+            <Button
+              variant="contained"
+              color="success"
+              size="small"
+              className={styles.rightMargin}
+              onClick={() => toggleActiveStatus(rowData)}
+              style={{ minWidth: 'unset', marginRight: 6 }}
+            >
+              <CheckCircleIcon fontSize="small" />
+            </Button>
+          </Tooltip>
+        )}
+        {!rowData.isActive && rowData.userType === 'user' && (
+          <Tooltip title="Activate User" arrow>
             <Button
               variant="contained"
               color="success"
@@ -140,6 +158,20 @@ const ManageUsers = () => {
         )}
         {rowData.isActive && rowData.userType === 'seller' && (
           <Tooltip title="Deactivate" arrow>
+            <Button
+              variant="contained"
+              color="warning"
+              size="small"
+              className={styles.rightMargin}
+              onClick={() => toggleActiveStatus(rowData)}
+              style={{ minWidth: 'unset', marginRight: 6 }}
+            >
+              <BlockIcon fontSize="small" />
+            </Button>
+          </Tooltip>
+        )}
+        {rowData.isActive && rowData.userType === 'user' && (
+          <Tooltip title="Deactivate User" arrow>
             <Button
               variant="contained"
               color="warning"
