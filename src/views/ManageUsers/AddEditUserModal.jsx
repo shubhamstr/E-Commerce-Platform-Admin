@@ -17,6 +17,8 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import Chip from '@mui/material/Chip';
 import { registerUser, getUser, updateUser, updatePassword } from '../../services/authService';
 import { showSuccess, showError } from '../Utils/toast';
 
@@ -59,6 +61,7 @@ const AddEditUserModal = ({ handleClose, userId, open, onSuccess }) => {
         mobileNumber: '',
         email: '',
         userType: '',
+        isActive: true,
         password: ''
       });
       setShowPassword(false);
@@ -231,6 +234,30 @@ const AddEditUserModal = ({ handleClose, userId, open, onSuccess }) => {
                     <MenuItem value={'seller'}>Seller</MenuItem>
                   </Select>
                 </FormControl>
+              </Grid>
+              <Grid item xs={6}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={!!formDetails?.isActive}
+                      onChange={(e) => setFormDetails((prev) => ({ ...prev, isActive: e.target.checked }))}
+                      color="success"
+                    />
+                  }
+                  label={
+                    <span>
+                      Account Status:{' '}
+                      <Chip
+                        label={formDetails?.isActive ? 'Active' : 'Inactive'}
+                        color={formDetails?.isActive ? 'success' : 'warning'}
+                        size="small"
+                        variant="outlined"
+                        style={{ marginLeft: 4 }}
+                      />
+                    </span>
+                  }
+                  style={{ marginTop: 16 }}
+                />
               </Grid>
             </Grid>
           )}

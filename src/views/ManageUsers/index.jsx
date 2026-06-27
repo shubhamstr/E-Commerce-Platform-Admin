@@ -6,10 +6,12 @@ import { useSelector } from 'react-redux';
 import moment from 'moment';
 
 // material-ui
-import { Card, CardHeader, CardContent, Divider, Grid, Typography, Button } from '@mui/material';
+import { Card, CardHeader, CardContent, Divider, Grid, Typography, Button, Chip, Tooltip } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import BlockIcon from '@mui/icons-material/Block';
 
 // table
 import { DataTable } from 'primereact/datatable';
@@ -19,7 +21,7 @@ import { FilterMatchMode } from 'primereact/api';
 // project import
 import BreadcrumbButton from 'component/BreadcrumbButton';
 import { gridSpacing } from 'config.js';
-import { getAllUsers } from '../../services/authService';
+import { getAllUsers, updateUser } from '../../services/authService';
 import { showSuccess, showError } from '../Utils/toast';
 import styles from './styles.module.css';
 import AddEditUserModal from './AddEditUserModal';
@@ -89,14 +91,67 @@ const ManageUsers = () => {
     showError('Delete functionality is not implemented yet.');
   };
 
+  const toggleActiveStatus = async (rowData) => {
+    try {
+      const res = await updateUser(rowData.id, { isActive: !rowData.isActive });
+      const { success, message } = res.data;
+      if (success) {
+        showSuccess(rowData.isActive ? 'User deactivated.' : 'Seller approved & activated!');
+        getUsers();
+      } else {
+        showError(message);
+      }
+    } catch (err) {
+      showError('Failed to update user status.');
+    }
+  };
+
+  const activeBodyTemplate = (rowData) => {
+    return (
+      <Chip
+        label={rowData.isActive ? 'Active' : 'Inactive'}
+        color={rowData.isActive ? 'success' : 'warning'}
+        size="small"
+        variant="outlined"
+      />
+    );
+  };
+
   const actionBodyTemplate = (rowData) => {
     let isDisabled = false;
-    // console.log(rowData, auth);
     if (auth.userData.userId === rowData.id) {
       isDisabled = true;
     }
     return (
       <React.Fragment>
+        {!rowData.isActive && (
+          <Tooltip title="Approve Seller" arrow>
+            <Button
+              variant="contained"
+              color="success"
+              size="small"
+              className={styles.rightMargin}
+              onClick={() => toggleActiveStatus(rowData)}
+              style={{ minWidth: 'unset', marginRight: 6 }}
+            >
+              <CheckCircleIcon fontSize="small" />
+            </Button>
+          </Tooltip>
+        )}
+        {rowData.isActive && rowData.userType === 'seller' && (
+          <Tooltip title="Deactivate" arrow>
+            <Button
+              variant="contained"
+              color="warning"
+              size="small"
+              className={styles.rightMargin}
+              onClick={() => toggleActiveStatus(rowData)}
+              style={{ minWidth: 'unset', marginRight: 6 }}
+            >
+              <BlockIcon fontSize="small" />
+            </Button>
+          </Tooltip>
+        )}
         <Button variant="contained" disabled={isDisabled} className={styles.rightMargin} onClick={() => editUser(rowData)}>
           <EditIcon />
         </Button>
@@ -169,9 +224,10 @@ const ManageUsers = () => {
               {/* <Column field="mobileNumber" header="Mobile Number" sortable filter></Column> */}
               <Column field="email" header="Email" sortable filter></Column>
               <Column field="userType" header="User Type" sortable filter></Column>
+              <Column field="isActive" header="Status" body={activeBodyTemplate}></Column>
               <Column field="isLogin" header="Is Logged In" body={loginTemplate} filter></Column>
               <Column field="createdAt" header="Created At" sortable body={dateTemplate} style={{ minWidth: '13rem' }} filter></Column>
-              <Column header="Actions" body={actionBodyTemplate} style={{ minWidth: '12rem' }}></Column>
+              <Column header="Actions" body={actionBodyTemplate} style={{ minWidth: '16rem' }}></Column>
             </DataTable>
           </Card>
         </Grid>
