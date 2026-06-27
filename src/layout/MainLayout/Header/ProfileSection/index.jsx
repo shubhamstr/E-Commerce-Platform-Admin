@@ -13,7 +13,7 @@ import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
 import MeetingRoomTwoToneIcon from '@mui/icons-material/MeetingRoomTwoTone';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from 'store/actions';
 
 // ==============================|| PROFILE SECTION ||============================== //
@@ -21,6 +21,7 @@ import { logout } from 'store/actions';
 const ProfileSection = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const auth = useSelector((state) => state.auth);
   const theme = useTheme();
 
   const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -128,9 +129,15 @@ const ProfileSection = () => {
                   <ListItemButton
                     selected={selectedIndex === 4}
                     onClick={() => {
+                      const userType = auth.userData?.userType;
                       localStorage.removeItem('ecomAdminToken');
+                      localStorage.removeItem('portalType');
                       dispatch(logout({}));
-                      navigate('/login');
+                      if (userType === 'seller') {
+                        navigate('/seller-login');
+                      } else {
+                        navigate('/login');
+                      }
                     }}
                   >
                     <ListItemIcon>

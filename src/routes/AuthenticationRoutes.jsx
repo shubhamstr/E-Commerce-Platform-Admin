@@ -19,6 +19,10 @@ const AuthenticationRoutes = {
       element: <AuthLogin />
     },
     {
+      path: '/seller-login',
+      element: <AuthLogin />
+    },
+    {
       path: '/register',
       element: <AuthRegister />
     }

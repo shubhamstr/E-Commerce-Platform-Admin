@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -41,6 +41,8 @@ import { jwtDecode } from 'jwt-decode';
 const AuthLogin = ({ ...rest }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isSellerLogin = location.pathname.includes('seller-login');
   const theme = useTheme();
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -63,10 +65,33 @@ const AuthLogin = ({ ...rest }) => {
         if (userType !== 'admin' && userType !== 'seller') {
           showError('Access Denied: Only Admins and Sellers can access the admin panel.');
           localStorage.removeItem('ecomAdminToken');
+          localStorage.removeItem('portalType');
           dispatch(logout({}));
           navigate('/login');
           return;
         }
+
+        if (isSellerLogin) {
+          if (userType !== 'seller') {
+            showError('Access Denied: Only Sellers can login through this portal.');
+            localStorage.removeItem('ecomAdminToken');
+            localStorage.removeItem('portalType');
+            dispatch(logout({}));
+            navigate('/seller-login');
+            return;
+          }
+        } else {
+          if (userType !== 'admin') {
+            showError('Access Denied: Only Admins can login through this portal.');
+            localStorage.removeItem('ecomAdminToken');
+            localStorage.removeItem('portalType');
+            dispatch(logout({}));
+            navigate('/login');
+            return;
+          }
+        }
+
+        localStorage.setItem('portalType', userType);
         dispatch(login());
         dispatch(
           setUser({
@@ -80,14 +105,16 @@ const AuthLogin = ({ ...rest }) => {
         navigate('/');
       } else {
         localStorage.removeItem('ecomAdminToken');
+        localStorage.removeItem('portalType');
         dispatch(logout({}));
-        navigate('/login');
+        navigate(isSellerLogin ? '/seller-login' : '/login');
       }
     } catch (err) {
       console.error(err);
       localStorage.removeItem('ecomAdminToken');
+      localStorage.removeItem('portalType');
       dispatch(logout({}));
-      navigate('/login');
+      navigate(isSellerLogin ? '/seller-login' : '/login');
     }
   };
 
@@ -167,8 +194,17 @@ const AuthLogin = ({ ...rest }) => {
                 showError('Access Denied: Only Admins and Sellers can access the admin panel.');
                 return;
               }
+              if (isSellerLogin && userType !== 'seller') {
+                showError('Access Denied: Only Sellers can login through this portal.');
+                return;
+              }
+              if (!isSellerLogin && userType !== 'admin') {
+                showError('Access Denied: Only Admins can login through this portal.');
+                return;
+              }
               showSuccess(message);
               localStorage.setItem('ecomAdminToken', data.token);
+              localStorage.setItem('portalType', userType);
               dispatch(login());
               dispatch(
                 setUser({

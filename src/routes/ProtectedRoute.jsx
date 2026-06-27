@@ -9,7 +9,12 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 
   useEffect(() => {
     if (!auth.isAuthenticated) {
-      navigate('/login');
+      const portalType = localStorage.getItem('portalType');
+      if (portalType === 'seller') {
+        navigate('/seller-login');
+      } else {
+        navigate('/login');
+      }
     } else if (allowedRoles && !allowedRoles.includes(auth.userData?.userType)) {
       showError('Access Denied: You do not have permission to view this page.');
       navigate('/dashboard/default');

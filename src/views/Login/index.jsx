@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -15,6 +15,8 @@ import Logo from 'assets/images/logo-dark.svg';
 
 const Login = () => {
   const theme = useTheme();
+  const location = useLocation();
+  const isSellerLogin = location.pathname.includes('seller-login');
 
   return (
     <Grid
@@ -44,7 +46,7 @@ const Login = () => {
                 <Grid container justifyContent="space-between">
                   <Grid item>
                     <Typography color="textPrimary" gutterBottom variant="h2">
-                      Sign in
+                      {isSellerLogin ? 'Seller Sign in' : 'Admin Sign in'}
                     </Typography>
                     {/* <Typography variant="body2" color="textSecondary">
                       To keep connected with us.

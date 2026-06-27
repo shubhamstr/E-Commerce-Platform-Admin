@@ -21,7 +21,13 @@ api.interceptors.request.use((config) => {
     if (decoded.exp < currentTime) {
       // Token expired → logout
       localStorage.removeItem('ecomAdminToken');
-      window.location.href = '/ecom/login';
+      const portalType = localStorage.getItem('portalType');
+      localStorage.removeItem('portalType');
+      if (portalType === 'seller') {
+        window.location.href = '/ecom/seller-login';
+      } else {
+        window.location.href = '/ecom/login';
+      }
     }
     config.headers.Authorization = `Bearer ${token}`;
   }
