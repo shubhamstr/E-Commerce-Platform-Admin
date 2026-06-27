@@ -13,6 +13,7 @@ const ManageCategories = Loadable(lazy(() => import('views/ManageCategories')));
 const ManageProducts = Loadable(lazy(() => import('views/ManageProducts')));
 const ManageContacts = Loadable(lazy(() => import('views/ManageContacts')));
 const ManageOrders = Loadable(lazy(() => import('views/ManageOrders')));
+const Profile = Loadable(lazy(() => import('views/Profile')));
 
 // ==============================|| MAIN ROUTES ||============================== //
 
@@ -45,7 +46,7 @@ const MainRoutes = {
     {
       path: '/manage-categories',
       element: (
-        <ProtectedRoute allowedRoles={['admin', 'seller']}>
+        <ProtectedRoute allowedRoles={['admin']}>
           <ManageCategories />
         </ProtectedRoute>
       )
@@ -71,6 +72,14 @@ const MainRoutes = {
       element: (
         <ProtectedRoute allowedRoles={['admin', 'seller']}>
           <ManageOrders />
+        </ProtectedRoute>
+      )
+    },
+    {
+      path: '/profile',
+      element: (
+        <ProtectedRoute allowedRoles={['admin', 'seller']}>
+          <Profile />
         </ProtectedRoute>
       )
     }

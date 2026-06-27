@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Fade, Button, ClickAwayListener, Paper, Popper, List, ListItemText, ListItemIcon, ListItemButton } from '@mui/material';
+import { Fade, Button, ClickAwayListener, Paper, Popper, List, ListItemText, ListItemIcon, ListItemButton, Typography } from '@mui/material';
 
 // assets
 import PersonTwoToneIcon from '@mui/icons-material/PersonTwoTone';
@@ -56,7 +56,19 @@ const ProfileSection = () => {
   return (
     <>
       <Button
-        sx={{ minWidth: { sm: 50, xs: 35 } }}
+        sx={{
+          minWidth: { sm: 50, xs: 35 },
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1,
+          px: 1.5,
+          py: 0.75,
+          borderRadius: '12px',
+          transition: 'all 0.3s ease-in-out',
+          '&:hover': {
+            backgroundColor: theme.palette.action.hover
+          }
+        }}
         ref={anchorRef}
         aria-controls={open ? 'menu-list-grow' : undefined}
         aria-haspopup="true"
@@ -65,6 +77,19 @@ const ProfileSection = () => {
         color="inherit"
       >
         <AccountCircleTwoToneIcon sx={{ fontSize: '1.5rem' }} />
+        {auth.userData?.firstName && (
+          <Typography
+            variant="subtitle1"
+            sx={{
+              display: { xs: 'none', sm: 'block' },
+              fontWeight: 600,
+              color: theme.palette.text.primary,
+              textTransform: 'none'
+            }}
+          >
+            {auth.userData.firstName} <span style={{ fontWeight: 400, opacity: 0.8, fontSize: '0.8rem' }}>({auth.userData.userType})</span>
+          </Typography>
+        )}
       </Button>
       <Popper
         placement="bottom-end"
@@ -108,13 +133,20 @@ const ProfileSection = () => {
                     </ListItemIcon>
                     <ListItemText primary="Settings" />
                   </ListItemButton>
-                  <ListItemButton selected={selectedIndex === 1} onClick={(event) => handleListItemClick(event, 1)}>
+                  <ListItemButton
+                    selected={selectedIndex === 1}
+                    onClick={(event) => {
+                      handleListItemClick(event, 1);
+                      setOpen(false);
+                      navigate('/profile');
+                    }}
+                  >
                     <ListItemIcon>
                       <PersonTwoToneIcon />
                     </ListItemIcon>
                     <ListItemText primary="Profile" />
                   </ListItemButton>
-                  <ListItemButton selected={selectedIndex === 2} onClick={(event) => handleListItemClick(event, 2)}>
+                  {/* <ListItemButton selected={selectedIndex === 2} onClick={(event) => handleListItemClick(event, 2)}>
                     <ListItemIcon>
                       <DraftsTwoToneIcon />
                     </ListItemIcon>
@@ -125,7 +157,7 @@ const ProfileSection = () => {
                       <LockOpenTwoTone />
                     </ListItemIcon>
                     <ListItemText primary="Lock Screen" />
-                  </ListItemButton>
+                  </ListItemButton> */}
                   <ListItemButton
                     selected={selectedIndex === 4}
                     onClick={() => {
