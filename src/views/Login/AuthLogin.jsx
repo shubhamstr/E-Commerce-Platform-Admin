@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -272,11 +273,12 @@ const AuthLogin = ({ ...rest }) => {
             </FormControl>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Typography variant="subtitle2" color="primary" sx={{ textDecoration: 'none' }}>
+                <Typography component={Link} to="/forgot-password" variant="subtitle2" color="primary" sx={{ textDecoration: 'none' }}>
                   Forgot Password?
                 </Typography>
               </Grid>
             </Grid>
+
 
             {errors.submit && (
               <Box mt={3}>
