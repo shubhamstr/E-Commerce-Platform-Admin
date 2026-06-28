@@ -15,6 +15,7 @@ const BulkImport = Loadable(lazy(() => import('views/BulkImport')));
 const ManageContacts = Loadable(lazy(() => import('views/ManageContacts')));
 const ManageOrders = Loadable(lazy(() => import('views/ManageOrders')));
 const ManageEmailLogs = Loadable(lazy(() => import('views/ManageEmailLogs')));
+const ManageCoupons = Loadable(lazy(() => import('views/ManageCoupons')));
 const Profile = Loadable(lazy(() => import('views/Profile')));
 
 // ==============================|| MAIN ROUTES ||============================== //
@@ -90,6 +91,14 @@ const MainRoutes = {
       element: (
         <ProtectedRoute allowedRoles={['admin']}>
           <ManageEmailLogs />
+        </ProtectedRoute>
+      )
+    },
+    {
+      path: '/manage-coupons',
+      element: (
+        <ProtectedRoute allowedRoles={['admin', 'seller']}>
+          <ManageCoupons />
         </ProtectedRoute>
       )
     },

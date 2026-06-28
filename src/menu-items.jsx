@@ -15,6 +15,7 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import MailIcon from '@mui/icons-material/Mail';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
 const icons = {
   PeopleIcon: PeopleIcon,
@@ -24,6 +25,7 @@ const icons = {
   ReceiptIcon: ReceiptIcon,
   MailIcon: MailIcon,
   CloudUploadIcon: CloudUploadIcon,
+  LocalOfferIcon: LocalOfferIcon,
   NavigationOutlinedIcon: NavigationOutlinedIcon,
   HomeOutlinedIcon: HomeOutlinedIcon,
   ChromeReaderModeOutlinedIcon: ChromeReaderModeOutlinedIcon,
@@ -118,6 +120,14 @@ export default {
           url: '/manage-email-logs',
           icon: icons['MailIcon'],
           allowedRoles: ['admin']
+        },
+        {
+          id: 'manage-coupons',
+          title: 'Manage Coupons',
+          type: 'item',
+          url: '/manage-coupons',
+          icon: icons['LocalOfferIcon'],
+          allowedRoles: ['admin', 'seller']
         },
         {
           id: 'sample-page',

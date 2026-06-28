@@ -330,6 +330,23 @@ const ManageOrders = () => {
                   return null;
                 })()}
 
+                {selectedOrder.couponCode && (
+                  <>
+                    <ListItem sx={{ py: 0.5, px: 0 }}>
+                      <ListItemText primary="Subtotal" />
+                      <Typography variant="body1">
+                        {formatPrice(selectedOrder.subTotal || selectedOrder.totalAmount)}
+                      </Typography>
+                    </ListItem>
+                    <ListItem sx={{ py: 0.5, px: 0 }}>
+                      <ListItemText primary={`Discount (Coupon: ${selectedOrder.couponCode})`} />
+                      <Typography variant="body1" sx={{ color: 'error.main' }}>
+                        -{formatPrice(selectedOrder.discountAmount)}
+                      </Typography>
+                    </ListItem>
+                  </>
+                )}
+
                 <ListItem sx={{ py: 1.5, px: 0 }}>
                   <ListItemText primary="Total" primaryTypographyProps={{ variant: 'h5' }} />
                   <Typography variant="h5" color="secondary">
