@@ -132,6 +132,14 @@ export default {
           allowedRoles: ['admin']
         },
         {
+          id: 'manage-audit-logs',
+          title: 'Audit Logs',
+          type: 'item',
+          url: '/manage-audit-logs',
+          icon: icons['SecurityOutlinedIcon'],
+          allowedRoles: ['admin']
+        },
+        {
           id: 'manage-coupons',
           title: 'Manage Coupons',
           type: 'item',
