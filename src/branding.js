@@ -4,10 +4,10 @@
 
 const branding = {
   // App name
-  name: 'ShopNest',
+  name: 'Guestora',
   // Tagline shown in sidebar card
   tagline: 'Manage your store with ease',
-  // Admin panel suffix (e.g. "ShopNest Admin")
+  // Admin panel suffix (e.g. "Guestora Admin")
   adminSuffix: 'Admin',
   // Full admin title
   get fullName() {
@@ -37,7 +37,7 @@ const branding = {
 
   // Contact info
   contact: {
-    email: 'support@shopnest.com',
+    email: 'support@guestora.com',
     phone: '+1 (800) 123-4567',
   },
 };
