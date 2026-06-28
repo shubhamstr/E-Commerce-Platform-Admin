@@ -13,6 +13,7 @@ import CategoryIcon from '@mui/icons-material/Category';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import ReceiptIcon from '@mui/icons-material/Receipt';
+import MailIcon from '@mui/icons-material/Mail';
 
 const icons = {
   PeopleIcon: PeopleIcon,
@@ -20,6 +21,7 @@ const icons = {
   ShoppingBagIcon: ShoppingBagIcon,
   ContactMailIcon: ContactMailIcon,
   ReceiptIcon: ReceiptIcon,
+  MailIcon: MailIcon,
   NavigationOutlinedIcon: NavigationOutlinedIcon,
   HomeOutlinedIcon: HomeOutlinedIcon,
   ChromeReaderModeOutlinedIcon: ChromeReaderModeOutlinedIcon,
@@ -98,6 +100,14 @@ export default {
           url: '/manage-orders',
           icon: icons['ReceiptIcon'],
           allowedRoles: ['admin', 'seller']
+        },
+        {
+          id: 'manage-email-logs',
+          title: 'Email Logs',
+          type: 'item',
+          url: '/manage-email-logs',
+          icon: icons['MailIcon'],
+          allowedRoles: ['admin']
         },
         {
           id: 'sample-page',
