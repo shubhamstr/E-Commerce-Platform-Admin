@@ -11,3 +11,5 @@ export const uploadProductImage = (formData: FormData) => api.post('/api/product
     'Content-Type': 'multipart/form-data'
   }
 });
+export const bulkImportProducts = (data: any) => api.post('/api/product/bulk-import', data);
+

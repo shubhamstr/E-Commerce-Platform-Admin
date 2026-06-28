@@ -14,6 +14,7 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import MailIcon from '@mui/icons-material/Mail';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 const icons = {
   PeopleIcon: PeopleIcon,
@@ -22,6 +23,7 @@ const icons = {
   ContactMailIcon: ContactMailIcon,
   ReceiptIcon: ReceiptIcon,
   MailIcon: MailIcon,
+  CloudUploadIcon: CloudUploadIcon,
   NavigationOutlinedIcon: NavigationOutlinedIcon,
   HomeOutlinedIcon: HomeOutlinedIcon,
   ChromeReaderModeOutlinedIcon: ChromeReaderModeOutlinedIcon,
@@ -83,6 +85,14 @@ export default {
           type: 'item',
           url: '/manage-products',
           icon: icons['ShoppingBagIcon'],
+          allowedRoles: ['admin', 'seller']
+        },
+        {
+          id: 'bulk-import-products',
+          title: 'Bulk Import Products',
+          type: 'item',
+          url: '/manage-products/bulk-import',
+          icon: icons['CloudUploadIcon'],
           allowedRoles: ['admin', 'seller']
         },
         {
