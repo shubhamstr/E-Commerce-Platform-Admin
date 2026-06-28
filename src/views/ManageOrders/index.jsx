@@ -38,6 +38,7 @@ import BreadcrumbButton from 'component/BreadcrumbButton';
 import { gridSpacing } from 'config.js';
 import { getAllOrders, updateOrderStatus } from '../../services/orderService';
 import { showSuccess, showError } from '../Utils/toast';
+import { formatPrice } from '../Utils/currency';
 
 // ==============================|| MANAGE ORDERS ||============================== //
 
@@ -134,7 +135,7 @@ const ManageOrders = () => {
   };
 
   const amountTemplate = (rowData) => {
-    return <span style={{ fontWeight: 'bold', color: '#2e7d32' }}>${parseFloat(rowData.totalAmount).toFixed(2)}</span>;
+    return <span style={{ fontWeight: 'bold', color: '#2e7d32' }}>{formatPrice(rowData.totalAmount)}</span>;
   };
 
   const statusTemplate = (rowData) => {
@@ -270,10 +271,10 @@ const ManageOrders = () => {
                         <Box display="flex" width="100%" justifyContent="space-between" alignItems="center">
                           <ListItemText
                             primary={item.product?.name || 'Unknown Product'}
-                            secondary={`Quantity: ${item.quantity} | Unit Price: $${parseFloat(item.price).toFixed(2)}`}
+                            secondary={`Quantity: ${item.quantity} | Unit Price: ${formatPrice(item.price)}`}
                           />
                           <Typography variant="body2" sx={{ fontWeight: 700 }}>
-                            ${(parseFloat(item.price) * item.quantity).toFixed(2)}
+                            {formatPrice(parseFloat(item.price) * item.quantity)}
                           </Typography>
                         </Box>
                         {(() => {
@@ -332,7 +333,7 @@ const ManageOrders = () => {
                 <ListItem sx={{ py: 1.5, px: 0 }}>
                   <ListItemText primary="Total" primaryTypographyProps={{ variant: 'h5' }} />
                   <Typography variant="h5" color="secondary">
-                    ${parseFloat(selectedOrder.totalAmount).toFixed(2)}
+                    {formatPrice(selectedOrder.totalAmount)}
                   </Typography>
                 </ListItem>
               </List>

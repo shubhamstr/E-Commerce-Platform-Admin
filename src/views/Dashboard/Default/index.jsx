@@ -13,6 +13,7 @@ import ReportCard from './ReportCard';
 
 import { gridSpacing } from 'config.js';
 import api from 'views/Utils/api';
+import { formatPrice } from '../../Utils/currency';
 
 // assets
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
@@ -99,7 +100,7 @@ const Default = () => {
           {!isSeller && (
             <Grid item lg={3} sm={6} xs={12}>
               <ReportCard
-                primary={`$${stats.totalEarnings || 0}`}
+                primary={formatPrice(stats.totalEarnings || 0)}
                 secondary="All Earnings"
                 color={theme.palette.warning.main}
                 footerData="Total revenue generated"
@@ -227,7 +228,7 @@ const Default = () => {
                       icon={<TrendingDownIcon />}
                       footerData={[
                         {
-                          value: !isSeller ? `$${stats.totalEarnings || 0}` : `${stats.totalOrders || 0}`,
+                          value: !isSeller ? formatPrice(stats.totalEarnings || 0) : `${stats.totalOrders || 0}`,
                           label: !isSeller ? 'Total Revenue' : 'Total Orders'
                         },
                         {

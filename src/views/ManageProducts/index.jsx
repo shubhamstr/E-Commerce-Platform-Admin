@@ -20,6 +20,7 @@ import BreadcrumbButton from 'component/BreadcrumbButton';
 import { gridSpacing } from 'config.js';
 import { getAllProducts, deleteProduct } from '../../services/productService';
 import { showSuccess, showError } from '../Utils/toast';
+import { formatPrice } from '../Utils/currency';
 import styles from './styles.module.css';
 import AddEditProductModal from './AddEditProductModal';
 
@@ -121,7 +122,7 @@ const ManageProducts = () => {
   };
 
   const priceTemplate = (rowData) => {
-    return `$${Number(rowData.price).toFixed(2)}`;
+    return formatPrice(rowData.price);
   };
 
   const actionBodyTemplate = (rowData) => {
