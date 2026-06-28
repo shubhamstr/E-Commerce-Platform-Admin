@@ -16,6 +16,7 @@ import ReceiptIcon from '@mui/icons-material/Receipt';
 import MailIcon from '@mui/icons-material/Mail';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import DnsIcon from '@mui/icons-material/Dns';
 
 const icons = {
   PeopleIcon: PeopleIcon,
@@ -26,6 +27,7 @@ const icons = {
   MailIcon: MailIcon,
   CloudUploadIcon: CloudUploadIcon,
   LocalOfferIcon: LocalOfferIcon,
+  DnsIcon: DnsIcon,
   NavigationOutlinedIcon: NavigationOutlinedIcon,
   HomeOutlinedIcon: HomeOutlinedIcon,
   ChromeReaderModeOutlinedIcon: ChromeReaderModeOutlinedIcon,
@@ -119,6 +121,14 @@ export default {
           type: 'item',
           url: '/manage-email-logs',
           icon: icons['MailIcon'],
+          allowedRoles: ['admin']
+        },
+        {
+          id: 'manage-system-logs',
+          title: 'App Health & Logs',
+          type: 'item',
+          url: '/manage-system-logs',
+          icon: icons['DnsIcon'],
           allowedRoles: ['admin']
         },
         {

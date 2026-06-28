@@ -16,6 +16,7 @@ const ManageContacts = Loadable(lazy(() => import('views/ManageContacts')));
 const ManageOrders = Loadable(lazy(() => import('views/ManageOrders')));
 const ManageEmailLogs = Loadable(lazy(() => import('views/ManageEmailLogs')));
 const ManageCoupons = Loadable(lazy(() => import('views/ManageCoupons')));
+const ManageSystemLogs = Loadable(lazy(() => import('views/ManageSystemLogs')));
 const Profile = Loadable(lazy(() => import('views/Profile')));
 
 // ==============================|| MAIN ROUTES ||============================== //
@@ -91,6 +92,14 @@ const MainRoutes = {
       element: (
         <ProtectedRoute allowedRoles={['admin']}>
           <ManageEmailLogs />
+        </ProtectedRoute>
+      )
+    },
+    {
+      path: '/manage-system-logs',
+      element: (
+        <ProtectedRoute allowedRoles={['admin']}>
+          <ManageSystemLogs />
         </ProtectedRoute>
       )
     },
