@@ -55,6 +55,7 @@ const BulkImport = () => {
   };
 
   const handleBulkImport = async () => {
+    if (loading) return;
     setLoading(true);
     setResult(null);
     try {
@@ -180,6 +181,7 @@ const BulkImport = () => {
                     color="primary"
                     fullWidth
                     size="large"
+                    disabled={loading}
                     onClick={handleBulkImport}
                     startIcon={<CloudUploadIcon />}
                     sx={{
