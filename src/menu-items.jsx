@@ -75,7 +75,7 @@ export default {
           type: 'item',
           url: '/manage-categories',
           icon: icons['CategoryIcon'],
-          allowedRoles: ['admin', 'seller']
+          allowedRoles: ['admin']
         },
         {
           id: 'manage-products',
