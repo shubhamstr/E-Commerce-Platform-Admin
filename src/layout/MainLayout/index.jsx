@@ -9,6 +9,7 @@ import { useMediaQuery, AppBar, Box, Toolbar } from '@mui/material';
 import { drawerWidth } from 'config.js';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import branding from 'branding';
 
 // custom style
 const Main = styled((props) => <main {...props} />)(({ theme }) => ({
@@ -71,9 +72,9 @@ const MainLayout = () => {
         <OutletDiv>
           <Outlet />
           <Box sx={{ mt: 5, textAlign: 'center', color: 'text.secondary', fontSize: '0.85rem' }}>
-            © {new Date().getFullYear()} ShopNest Admin. Built by{' '}
-            <a href="https://codeguest.in" target="_blank" rel="noreferrer" style={{ color: '#667eea', textDecoration: 'none' }}>
-              Shubham
+            © {new Date().getFullYear()} {branding.fullName}. Built by{' '}
+            <a href={branding.author.portfolioUrl} target="_blank" rel="noreferrer" style={{ color: branding.colors.accentColor, textDecoration: 'none' }}>
+              {branding.author.name}
             </a>
           </Box>
         </OutletDiv>

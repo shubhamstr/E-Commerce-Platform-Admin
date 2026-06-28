@@ -1,3 +1,6 @@
+// branding
+import branding from 'branding';
+
 // assets
 import NavigationOutlinedIcon from '@mui/icons-material/NavigationOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
@@ -46,7 +49,7 @@ export default {
   items: [
     {
       id: 'navigation',
-      title: 'ShopNest',
+      title: branding.name,
       caption: 'Dashboard',
       type: 'group',
       icon: icons['NavigationOutlinedIcon'],

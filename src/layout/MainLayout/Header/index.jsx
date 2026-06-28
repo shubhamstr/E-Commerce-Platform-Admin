@@ -10,6 +10,7 @@ import SearchSection from './SearchSection';
 import ProfileSection from './ProfileSection';
 import NotificationSection from './NotificationSection';
 import { drawerWidth } from 'config.js';
+import branding from 'branding';
 
 // assets
 import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
@@ -38,7 +39,7 @@ const Header = ({ drawerToggle }) => {
                     userSelect: 'none',
                   }}
                 >
-                  ShopNest
+                  {branding.name}
                 </Typography>
               </Box>
             </Grid>

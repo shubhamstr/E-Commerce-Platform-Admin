@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { forgotPassword } from '../../services/authService';
 import { showSuccess, showError } from '../Utils/toast';
+import branding from 'branding';
 
 const ForgotPassword = () => {
   const theme = useTheme();
@@ -40,15 +41,9 @@ const ForgotPassword = () => {
                     <RouterLink to="/" style={{ textDecoration: 'none' }}>
                       <Typography
                         variant="h3"
-                        sx={{
-                          fontWeight: 800,
-                          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                          WebkitBackgroundClip: 'text',
-                          WebkitTextFillColor: 'transparent',
-                          backgroundClip: 'text',
-                        }}
+                        sx={branding.gradientTextSx}
                       >
-                        ShopNest
+                        {branding.name}
                       </Typography>
                     </RouterLink>
                   </Grid>

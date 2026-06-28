@@ -11,6 +11,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 // project import
 import MenuList from './MenuList';
 import { drawerWidth } from 'config.js';
+import branding from 'branding';
 
 // custom style
 const Nav = styled((props) => <nav {...props} />)(({ theme }) => ({
@@ -52,7 +53,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
                 userSelect: 'none',
               }}
             >
-              ShopNest
+              {branding.name}
             </Typography>
           </Grid>
         </Grid>

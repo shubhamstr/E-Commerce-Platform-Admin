@@ -7,6 +7,7 @@ import { Card, CardContent, Typography, Grid } from '@mui/material';
 
 // project import
 import AuthLogin from './AuthLogin';
+import branding from 'branding';
 
 // ==============================|| LOGIN ||============================== //
 
@@ -50,15 +51,9 @@ const Login = () => {
                     <RouterLink to="/" style={{ textDecoration: 'none' }}>
                       <Typography
                         variant="h3"
-                        sx={{
-                          fontWeight: 800,
-                          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                          WebkitBackgroundClip: 'text',
-                          WebkitTextFillColor: 'transparent',
-                          backgroundClip: 'text',
-                        }}
+                        sx={branding.gradientTextSx}
                       >
-                        ShopNest
+                        {branding.name}
                       </Typography>
                     </RouterLink>
                   </Grid>
