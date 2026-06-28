@@ -12,6 +12,7 @@ import Checkbox from '@mui/material/Checkbox';
 import MenuItem from '@mui/material/MenuItem';
 import { addCoupon, getCoupon, updateCoupon } from '../../services/couponService';
 import { showSuccess, showError } from '../Utils/toast';
+import { CURRENCY_SYMBOL } from '../Utils/currency';
 
 const AddEditCouponModal = ({ handleClose, couponId, open, onSuccess }) => {
   const [formDetails, setFormDetails] = useState({
@@ -159,7 +160,7 @@ const AddEditCouponModal = ({ handleClose, couponId, open, onSuccess }) => {
                 fullWidth
               >
                 <MenuItem value="percentage">Percentage (%)</MenuItem>
-                <MenuItem value="fixed">Fixed Amount (₹)</MenuItem>
+                <MenuItem value="fixed">Fixed Amount ({CURRENCY_SYMBOL})</MenuItem>
               </TextField>
             </Grid>
             <Grid item xs={6}>
@@ -178,7 +179,7 @@ const AddEditCouponModal = ({ handleClose, couponId, open, onSuccess }) => {
               <Grid item xs={12}>
                 <TextField
                   name="maxDiscountAmount"
-                  label="Max Discount Amount (₹)"
+                  label={`Max Discount Amount (${CURRENCY_SYMBOL})`}
                   value={formDetails.maxDiscountAmount}
                   onChange={onChange}
                   type="number"
@@ -191,7 +192,7 @@ const AddEditCouponModal = ({ handleClose, couponId, open, onSuccess }) => {
             <Grid item xs={6}>
               <TextField
                 name="minOrderAmount"
-                label="Min Order Amount (₹)"
+                label={`Min Order Amount (${CURRENCY_SYMBOL})`}
                 value={formDetails.minOrderAmount}
                 onChange={onChange}
                 type="number"

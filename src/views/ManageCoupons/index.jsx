@@ -20,6 +20,7 @@ import { gridSpacing } from 'config.js';
 import { getAllCoupons, deleteCoupon } from '../../services/couponService';
 import { showSuccess, showError } from '../Utils/toast';
 import AddEditCouponModal from './AddEditCouponModal';
+import { CURRENCY_SYMBOL } from '../Utils/currency';
 
 const ManageCoupons = () => {
   const [couponsList, setCouponsList] = useState([]);
@@ -80,11 +81,11 @@ const ManageCoupons = () => {
   };
 
   const typeTemplate = (rowData) => {
-    return rowData.discountType === 'percentage' ? 'Percentage (%)' : 'Fixed Amount (₹)';
+    return rowData.discountType === 'percentage' ? 'Percentage (%)' : `Fixed Amount (${CURRENCY_SYMBOL})`;
   };
 
   const valueTemplate = (rowData) => {
-    return rowData.discountType === 'percentage' ? `${rowData.discountValue}%` : `₹${rowData.discountValue}`;
+    return rowData.discountType === 'percentage' ? `${rowData.discountValue}%` : `${CURRENCY_SYMBOL}${rowData.discountValue}`;
   };
 
   const limitTemplate = (rowData) => {
@@ -163,7 +164,7 @@ const ManageCoupons = () => {
               <Column field="code" header="Coupon Code" sortable></Column>
               <Column header="Type" body={typeTemplate} sortable></Column>
               <Column header="Value" body={valueTemplate} sortable></Column>
-              <Column field="minOrderAmount" header="Min Order (₹)" sortable></Column>
+              <Column field="minOrderAmount" header={`Min Order (${CURRENCY_SYMBOL})`} sortable></Column>
               <Column header="Usage Limit" body={limitTemplate} sortable></Column>
               <Column header="Expiry Date" body={expiryTemplate} sortable></Column>
               <Column header="Status" body={activeTemplate} sortable></Column>
