@@ -127,12 +127,12 @@ const ProfileSection = () => {
                     borderRadius: '10px'
                   }}
                 >
-                  <ListItemButton selected={selectedIndex === 0} onClick={(event) => handleListItemClick(event, 0)}>
+                  {/* <ListItemButton selected={selectedIndex === 0} onClick={(event) => handleListItemClick(event, 0)}>
                     <ListItemIcon>
                       <SettingsTwoToneIcon />
                     </ListItemIcon>
                     <ListItemText primary="Settings" />
-                  </ListItemButton>
+                  </ListItemButton> */}
                   <ListItemButton
                     selected={selectedIndex === 1}
                     onClick={(event) => {
