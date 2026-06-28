@@ -21,7 +21,6 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { resetPassword } from '../../services/authService';
 import { showSuccess, showError } from '../Utils/toast';
-import Logo from 'assets/images/logo-dark.svg';
 
 const ResetPassword = () => {
   const theme = useTheme();
@@ -61,8 +60,19 @@ const ResetPassword = () => {
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <RouterLink to="/">
-                      <img alt="Logo" src={Logo} />
+                    <RouterLink to="/" style={{ textDecoration: 'none' }}>
+                      <Typography
+                        variant="h3"
+                        sx={{
+                          fontWeight: 800,
+                          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                        }}
+                      >
+                        ShopNest
+                      </Typography>
                     </RouterLink>
                   </Grid>
                 </Grid>

@@ -70,11 +70,10 @@ const MainLayout = () => {
         <Box sx={theme.mixins.toolbar} />
         <OutletDiv>
           <Outlet />
-          <Box sx={{ mt: 5 }}>
-            {' '}
-            Distributed by{' '}
-            <a href="https://themewagon.com" target="_blank" rel="noreferrer">
-              ThemeWagon
+          <Box sx={{ mt: 5, textAlign: 'center', color: 'text.secondary', fontSize: '0.85rem' }}>
+            © {new Date().getFullYear()} ShopNest Admin. Built by{' '}
+            <a href="https://codeguest.in" target="_blank" rel="noreferrer" style={{ color: '#667eea', textDecoration: 'none' }}>
+              Shubham
             </a>
           </Box>
         </OutletDiv>

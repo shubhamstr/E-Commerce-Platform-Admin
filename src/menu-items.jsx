@@ -46,7 +46,7 @@ export default {
   items: [
     {
       id: 'navigation',
-      title: 'Materially',
+      title: 'ShopNest',
       caption: 'Dashboard',
       type: 'group',
       icon: icons['NavigationOutlinedIcon'],

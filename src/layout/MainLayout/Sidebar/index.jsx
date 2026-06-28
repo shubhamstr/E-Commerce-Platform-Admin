@@ -3,7 +3,7 @@ import React from 'react';
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
-import { useMediaQuery, Divider, Drawer, Grid, Box } from '@mui/material';
+import { useMediaQuery, Divider, Drawer, Grid, Box, Typography } from '@mui/material';
 
 // third party
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -11,9 +11,6 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 // project import
 import MenuList from './MenuList';
 import { drawerWidth } from 'config.js';
-
-// assets
-import logo from 'assets/images/logo.svg';
 
 // custom style
 const Nav = styled((props) => <nav {...props} />)(({ theme }) => ({
@@ -46,7 +43,17 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
           }}
         >
           <Grid item>
-            <img src={logo} alt="Logo" />
+            <Typography
+              variant="h4"
+              sx={{
+                fontWeight: 800,
+                color: '#fff',
+                letterSpacing: '0.5px',
+                userSelect: 'none',
+              }}
+            >
+              ShopNest
+            </Typography>
           </Grid>
         </Grid>
       </Box>

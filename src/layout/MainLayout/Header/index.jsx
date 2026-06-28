@@ -3,7 +3,7 @@ import React from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Box, Grid, IconButton } from '@mui/material';
+import { Box, Grid, IconButton, Typography } from '@mui/material';
 
 // project import
 import SearchSection from './SearchSection';
@@ -13,7 +13,6 @@ import { drawerWidth } from 'config.js';
 
 // assets
 import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
-import logo from 'assets/images/logo.svg';
 
 // ==============================|| HEADER ||============================== //
 
@@ -27,7 +26,20 @@ const Header = ({ drawerToggle }) => {
           <Box sx={{ display: { xs: 'none', md: 'block' } }}>
             <Grid item>
               <Box mt={0.5}>
-                <img src={logo} alt="Logo" />
+                <Typography
+                  variant="h4"
+                  sx={{
+                    fontWeight: 800,
+                    letterSpacing: '0.5px',
+                    background: 'linear-gradient(135deg, #fff 60%, rgba(255,255,255,0.7))',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    userSelect: 'none',
+                  }}
+                >
+                  ShopNest
+                </Typography>
               </Box>
             </Grid>
           </Box>
