@@ -89,8 +89,9 @@ jobs:
       - name: 🖥️ SSH into EC2 and run container
         uses: appleboy/ssh-action@v1.0.3
         env:
-          IMAGE_URI: ${{ needs.build-and-push.outputs.image }}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }}
           ECR_PASSWORD: ${{ steps.prep.outputs.ecr_password }}
           CONTAINER_NAME: ${{ env.CONTAINER_NAME }}
           APP_PORT: ${{ env.APP_PORT }}
@@ -99,9 +100,12 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-          envs: IMAGE_URI,ECR_REGISTRY,ECR_PASSWORD,CONTAINER_NAME,APP_PORT,HOST_PORT
+          envs: ECR_REGISTRY,ECR_REPOSITORY,IMAGE_TAG,ECR_PASSWORD,CONTAINER_NAME,APP_PORT,HOST_PORT
           script: |
             set -e
+
+            # Reconstruct the full image URI from its parts (same approach as website pipeline)
+            IMAGE_URI="${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
 
             echo "==> Authenticating Docker with ECR..."
             echo "$ECR_PASSWORD" | docker login --username AWS --password-stdin "$ECR_REGISTRY"
