@@ -195,7 +195,7 @@ const AddEditCategoryModal = ({ handleClose, categoryId, open, onSuccess }) => {
                 {formDetails?.imageUrl && (
                   <div style={{ marginTop: '10px' }}>
                     <img
-                      src={`${import.meta.env.VITE_APP_SERVER_URL || 'http://localhost:5000'}${formDetails.imageUrl}`}
+                      src={`${import.meta.env.VITE_APP_SERVER_URL || 'http://localhost:4005'}${formDetails.imageUrl}`}
                       alt="Category Preview"
                       style={{ maxWidth: '100%', maxHeight: '150px', objectFit: 'contain', borderRadius: '4px' }}
                     />

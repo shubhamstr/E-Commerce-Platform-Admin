@@ -108,7 +108,7 @@ const ManageCategories = () => {
     if (rowData.imageUrl) {
       return (
         <img
-          src={`${import.meta.env.VITE_APP_SERVER_URL || 'http://localhost:5000'}${rowData.imageUrl}`}
+          src={`${import.meta.env.VITE_APP_SERVER_URL || 'http://localhost:4005'}${rowData.imageUrl}`}
           alt={rowData.name}
           style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }}
         />
