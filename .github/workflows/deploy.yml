@@ -7,8 +7,8 @@ on:
 
 env:
   CONTAINER_NAME: ecom-admin # Docker container name on EC2
-  APP_PORT: 80               # Port nginx listens on inside the container
-  HOST_PORT: 4010            # Port exposed on the EC2 host
+  APP_PORT: 80 # Port nginx listens on inside the container
+  HOST_PORT: 4010 # Port exposed on the EC2 host
 
 jobs:
   # ─────────────────────────────────────────────────────────────────────────────
@@ -98,7 +98,7 @@ jobs:
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
+          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           envs: IMAGE_URI,ECR_REGISTRY,ECR_PASSWORD,CONTAINER_NAME,APP_PORT,HOST_PORT
           script: |
             set -e
